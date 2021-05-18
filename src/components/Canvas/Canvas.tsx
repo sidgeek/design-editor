@@ -7,6 +7,7 @@ import {
   useZoomHandler,
   useContainerHandler,
   useGuidelinesHandler,
+  usePanningHandler,
 } from '@components/Canvas/handlers'
 
 function Canvas() {
@@ -16,6 +17,7 @@ function Canvas() {
   useGuidelinesHandler()
   useEventsHandler()
   useZoomHandler()
+  usePanningHandler()
   useEffect(() => {
     const initialHeigh = containerRef.current.clientHeight
     const initialWidth = containerRef.current.clientWidth
@@ -37,6 +39,7 @@ function Canvas() {
       selectable: false,
       hoverCursor: 'default',
     })
+
     canvas.add(workarea)
     workarea.center()
   }, [])
