@@ -41,11 +41,16 @@ function Canvas() {
     })
 
     canvas.add(workarea)
+
     workarea.center()
   }, [])
   return (
-    <div className="editor-canvas" ref={containerRef}>
-      <canvas id="canvas"></canvas>
+    <div style={{ flex: 1, display: 'flex', position: 'relative' }}>
+      <div style={{ width: '100%', height: '100%', position: 'absolute' }}>
+        <div style={{ height: '100%' }} className="editor-canvas" ref={containerRef}>
+          <canvas id="canvas"></canvas>
+        </div>
+      </div>
     </div>
   )
 }
