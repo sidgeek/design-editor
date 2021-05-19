@@ -1,27 +1,29 @@
 import { useCanvasContext } from '@components/Canvas/hooks'
 import { createRef, useCallback, useEffect } from 'react'
+import ResizeObserver from 'resize-observer-polyfill'
+import useCoreHandler from './useCoreHandler'
 
 function useContainerHandler() {
   const containerRef = createRef<HTMLDivElement>()
+  const { resizeCanvas } = useCoreHandler()
   const { canvas } = useCanvasContext()
-  const updateCanvasSize = useCallback(
-    (x, y) => {
-      if (canvas) {
-        canvas.setHeight(y).setWidth(x)
-        canvas.renderAll()
-        // @ts-ignore
-        const workarea = canvas.getObjects().find(obj => obj.id === 'workarea')
-        if (workarea) {
-          workarea.center()
-        }
-      }
-    },
-    [canvas]
-  )
+
   useEffect(() => {
     const containerWidth = containerRef.current.clientWidth
     const containerHeight = containerRef.current.clientHeight
-    updateCanvasSize(containerWidth, containerHeight)
+    resizeCanvas(containerWidth, containerHeight)
+    const resizeObserver = new ResizeObserver(entries => {
+      const { width = containerWidth, height = containerHeight } =
+        (entries[0] && entries[0].contentRect) || {}
+      resizeCanvas(width, height)
+    })
+    resizeObserver.observe(containerRef.current)
+    return () => {
+      if (containerRef.current) {
+        resizeObserver.unobserve(containerRef.current)
+      }
+    }
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [canvas])
 

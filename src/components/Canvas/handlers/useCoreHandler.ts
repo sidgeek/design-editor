@@ -6,6 +6,34 @@ import { propertiesToInclude } from '../constants/contants'
 function useCoreHandler() {
   const { canvas, activeObject } = useCanvasContext()
 
+  const resizeCanvas = useCallback(
+    (nextWidth, nextHeight) => {
+      if (canvas) {
+        const diffWidth = nextWidth / 2 - canvas.width / 2
+        const diffHeight = nextHeight / 2 - canvas.height / 2
+        canvas.setWidth(nextWidth).setHeight(nextHeight)
+
+        //@ts-ignore
+        const workarea = canvas.getObjects().find(obj => obj.id === 'workarea')
+        workarea.center()
+        canvas.renderAll()
+
+        canvas.forEachObject(obj => {
+          // @ts-ignore
+          if (obj.id !== 'workarea') {
+            const left = obj.left + diffWidth
+            const top = obj.top + diffHeight
+            obj.set({
+              left,
+              top,
+            })
+          }
+        })
+        canvas.requestRenderAll()
+      }
+    },
+    [canvas]
+  )
   // Add objects to canvas
   const addObject = useCallback(
     options => {
@@ -62,7 +90,7 @@ function useCoreHandler() {
     [canvas]
   )
 
-  return { exportJSON, loadJSON, setCanvasBackgroundColor, addObject, setProperty }
+  return { exportJSON, loadJSON, setCanvasBackgroundColor, addObject, setProperty, resizeCanvas }
 }
 
 export default useCoreHandler
