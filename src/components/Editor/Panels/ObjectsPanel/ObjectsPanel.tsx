@@ -2,17 +2,15 @@ import { useEffect, useState } from 'react'
 import { Input, InputGroup, InputLeftElement } from '@chakra-ui/react'
 import { SearchIcon } from '@chakra-ui/icons'
 import { getImage, getImages } from '@services/iconscout'
-import { useCanvasContext } from '@components/Canvas/hooks'
 import { useDebounce } from 'use-debounce'
-
-import { fabric } from 'fabric'
+import { useCoreHandler } from '@/components/Canvas/handlers'
 
 function ObjectsPanel() {
   const [search, setSearch] = useState('')
   const [objects, setObjects] = useState<any[]>([])
   const [value] = useDebounce(search, 1000)
-  const { canvas } = useCanvasContext()
 
+  const { addObject } = useCoreHandler()
   useEffect(() => {
     getImages('love')
       .then((data: any) => setObjects(data))
@@ -38,16 +36,11 @@ function ObjectsPanel() {
   const downloadImage = uuid => {
     getImage(uuid)
       .then(url => {
-        fabric.loadSVGFromURL(url, (objects, options) => {
-          const object = fabric.util.groupSVGElements(objects, options)
-          //@ts-ignore
-          const workarea = canvas.getObjects().find(obj => obj.id === 'workarea')
-          canvas.add(object)
-          object.scaleToHeight(300)
-          object.center()
-          object.clipPath = workarea
-          canvas.renderAll()
-        })
+        const options = {
+          type: 'svg',
+          url: url,
+        }
+        addObject(options)
       })
       .catch(console.log)
   }

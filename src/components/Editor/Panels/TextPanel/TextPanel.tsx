@@ -6,7 +6,7 @@ function TextPanel() {
   const { addObject } = useCoreHandler()
   const addHeading = () => {
     const options = {
-      type: 'text',
+      type: 'textbox',
       text: 'Add a heading',
       fontSize: 32,
       width: 320,
@@ -19,7 +19,7 @@ function TextPanel() {
 
   const addSubheading = () => {
     const options = {
-      type: 'text',
+      type: 'textbox',
       text: 'Add a subheading',
       fontSize: 24,
       width: 320,
@@ -32,7 +32,7 @@ function TextPanel() {
 
   const addTextBody = () => {
     const options = {
-      type: 'text',
+      type: 'textbox',
       text: 'Add a little bit of body text',
       fontSize: 18,
       width: 320,
