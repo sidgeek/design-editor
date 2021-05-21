@@ -21,7 +21,7 @@ export function getImages(query) {
           page: 1,
           formats: ['svg'],
           styles: ['colored-outline'],
-          sort: 'popular',
+          sort: 'color',
         },
       })
       .then(response => {
