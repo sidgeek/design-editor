@@ -98,10 +98,9 @@ function Canvas() {
             pointerEvents: 'none',
           }}
         >
-          <div>Alonso</div>
-          <div>Dany</div>
-          <div>Lee</div>
-          {/* Hello */}
+          <div>Feature 1</div>
+          <div>Feature 2</div>
+          <div>Feature 3</div>
         </Box>
       )}
       <div style={{ width: '100%', height: '100%', position: 'absolute' }}>
