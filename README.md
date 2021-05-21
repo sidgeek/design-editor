@@ -2,21 +2,21 @@
 
 React design editor using FabricJS. Create images in React, draw diagrams and arrange compositions using the image editor and save the result to one of several export formats, provides functionality similar to canva.com.
 
-![Editor Preview](https://i.ibb.co/2jZdhXj/preview3.png)
+![Editor Preview](https://i.ibb.co/tXQ0mq6/Screenshot-select-area-20210521184504.png)
 
 ## Features
 
 - [x] Add, remove, resize, reorder, clone, copy/paste objects
-- [x] Group/ungroup objects
+- [ ] Group/ungroup objects
 - [x] Zoom/pan canvas
-- [ ] Import and export to JSON or image
-- [ ] Context menu
+- [x] Import and export to JSON or image
+- [x] Context menu
 - [ ] Animation support, with Fade / Bounce / Shake / Scaling / Rotation / Flash effects
-- [ ] Multiple interation modes: grasp, selection, ctrl + drag grab
+- [x] Multiple interation modes: grasp, selection, ctrl + drag grab
 - [x] Undo/Redo support
 - [x] Guidelines support
 - [ ] Multiple canvas support
-- [x] Preview mode
+- [ ] Preview mode
 
 ## How to start
 
@@ -44,7 +44,13 @@ ICONSCOUT_CLIENT_ID="your-client-id"
 ICONSCOUT_SECRET="your-secret"
 ```
 
-Currently, this values are being included in the repository. In the furure, you will require to add your own credentials.
+### Pixabay
+
+Images provider. Add credentials to `.env` file.
+
+```sh
+REACT_APP_PIXABAY_KEY="your-key"
+```
 
 ## Contribution
 
