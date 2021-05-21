@@ -1,10 +1,11 @@
-import "./CanvasArea.scss"
-import Canvas from "@components/Canvas"
+import { Flex } from '@chakra-ui/react'
+import Canvas from '@components/Canvas'
+
 function CanvasArea() {
   return (
-    <div className="canvasarea">
+    <Flex flex={1}>
       <Canvas />
-    </div>
+    </Flex>
   )
 }
 
