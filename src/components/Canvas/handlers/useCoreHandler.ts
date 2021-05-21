@@ -36,9 +36,14 @@ function useCoreHandler() {
   )
   // Add objects to canvas
   const addObject = useCallback(
-    options => {
+    async options => {
       const { type, ...textOptions } = options
-      const element = CanvasObjects[type].render(textOptions)
+
+      const element = await CanvasObjects[type].create(textOptions)
+      if (element.type != 'textbox') {
+        element.scaleToHeight(180)
+      }
+
       //@ts-ignore
       const workarea = canvas.getObjects().find(obj => obj.id === 'workarea')
       canvas.add(element)

@@ -6,7 +6,7 @@ import './Panels.scss'
 
 function Panels() {
   const [panelOpen, setPanelOpen] = useState(true)
-  const [activeTab, setActiveTab] = useState('objects')
+  const [activeTab, setActiveTab] = useState('images')
 
   const closePanel = () => {
     setPanelOpen(!panelOpen)
