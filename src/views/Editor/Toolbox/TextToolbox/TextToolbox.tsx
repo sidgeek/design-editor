@@ -2,8 +2,7 @@
 import { ChevronDownIcon } from '@chakra-ui/icons'
 import { useCanvasContext } from '@/components/Canvas/hooks'
 import { useEffect, useState } from 'react'
-import { Popover, PopoverTrigger, PopoverContent, PopoverBody } from '@chakra-ui/react'
-import './TextToolbox.scss'
+import { Popover, PopoverTrigger, PopoverContent, PopoverBody, Flex, Box, Button } from '@chakra-ui/react'
 import { useCoreHandler } from '@/components/Canvas/handlers'
 
 const fontsList = ['Open Sans', 'Lexend', 'Comic Neue', 'Patrick Hand']
@@ -37,38 +36,36 @@ function TextTool() {
   }
 
   return (
-    <div className="editor-toolbox-container">
-      <div className="editor-toolbox text">
-        <div>
-          <Popover placement="bottom-start" matchWidth={true}>
-            <PopoverTrigger>
-              <div className="font-family-selector">
-                <div>{options.fontFamily}</div>
-                <ChevronDownIcon />
-              </div>
-            </PopoverTrigger>
-            <PopoverContent style={{ width: '240px' }}>
-              <PopoverBody>
-                {fontsList.map(fontItem => (
-                  <div
-                    onClick={() => onChangeFontFamily(fontItem)}
-                    style={{ fontFamily: fontItem }}
-                    className="list-item"
-                    key={fontItem}
-                  >
-                    {fontItem}
-                  </div>
-                ))}
-              </PopoverBody>
-            </PopoverContent>
-          </Popover>
-        </div>
-        <div className="section-two">
-          <OpacityIcon />
-          <DeleteIcon />
-        </div>
+    <Flex height={54} padding={'0 1rem'} justifyContent="space-between" alignItems="center">
+      <div>
+        <Popover placement="bottom-start" matchWidth={true}>
+          <PopoverTrigger>
+            <Box as={Button}>
+              <div>{options.fontFamily}</div>
+              <ChevronDownIcon />
+            </Box>
+          </PopoverTrigger>
+          <PopoverContent style={{ width: '240px' }}>
+            <PopoverBody>
+              {fontsList.map(fontItem => (
+                <Box
+                  onClick={() => onChangeFontFamily(fontItem)}
+                  style={{ fontFamily: fontItem }}
+                  className="list-item"
+                  key={fontItem}
+                >
+                  {fontItem}
+                </Box>
+              ))}
+            </PopoverBody>
+          </PopoverContent>
+        </Popover>
       </div>
-    </div>
+      <Flex>
+        <OpacityIcon />
+        <DeleteIcon />
+      </Flex>
+    </Flex>
   )
 }
 

@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import styled from '@emotion/styled'
 import {
   Button,
@@ -16,7 +16,7 @@ import {
   Divider,
   Center,
 } from '@chakra-ui/react'
-import { useCanvasContext } from '@/components/Canvas/hooks'
+import { useCanvasContext } from '@components/Canvas/hooks'
 
 interface Option {
   zoomValue: number
@@ -26,7 +26,7 @@ const zoomValues = [3, 2, 1.25, 1, 0.75, 0.5, 0.25, 0.1]
 
 function FooterMenu() {
   const [option, setOption] = useState<Option>({ zoomValue: 40 })
-  const { zoomRatio, setZoomRatio } = useCanvasContext()
+  const { zoomRatio, setZoomRatio, setCanvasType, canvasType } = useCanvasContext()
 
   const updateOptions = (key: string, value: number) => {
     setOption({ ...option, [key]: value })
@@ -53,7 +53,10 @@ function FooterMenu() {
       height="50px"
     >
       <ButtonGroup>
-        <div style={{ position: 'relative', overflow: 'hidden' }}>
+        <div
+          onClick={() => setCanvasType(canvasType === 'previews' ? 'editor' : 'previews')}
+          style={{ position: 'relative', overflow: 'hidden' }}
+        >
           <div
             style={{
               fontSize: '14px',

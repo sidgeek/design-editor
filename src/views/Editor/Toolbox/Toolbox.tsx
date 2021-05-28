@@ -1,11 +1,14 @@
 import { useCanvasContext } from '@/components/Canvas/hooks'
 import DefaultToolbox from './DefaultToolbox/DefaultToolbox'
 import TextToolbox from './TextToolbox/TextToolbox'
-
-import './Toolbox.scss'
+import PreviewsToolbox from './PreviewsToolbox'
 
 function Toolbox() {
-  const { activeObject } = useCanvasContext()
+  const { activeObject, canvasType } = useCanvasContext()
+
+  if (canvasType === 'previews') {
+    return <PreviewsToolbox />
+  }
   if (!activeObject) {
     return <DefaultToolbox />
   }

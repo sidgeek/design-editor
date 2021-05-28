@@ -1,6 +1,6 @@
 import { Flex } from '@chakra-ui/react'
 import { useState } from 'react'
-import { useCanvasContext } from '@/components/Canvas/hooks'
+import { useCanvasContext } from '@components/Canvas/hooks'
 import { DownloadIcon, LogoIcon, GithubIcon } from './NavbarIcons'
 import { ButtonGroup, Input } from '@chakra-ui/react'
 

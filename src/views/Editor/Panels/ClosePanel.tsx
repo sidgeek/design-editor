@@ -1,10 +1,15 @@
 interface ClosePanelProp {
   closePanel: () => void
+  panelOpen: boolean
 }
 
-function ClosePanel({ closePanel }: ClosePanelProp) {
+function ClosePanel({ closePanel, panelOpen }: ClosePanelProp) {
   return (
-    <div onClick={closePanel} className="panel-item-close">
+    <div
+      style={{ opacity: `${panelOpen ? 1 : 0}`, transition: 'all 0.6s' }}
+      onClick={closePanel}
+      className="panel-item-close"
+    >
       <div className="c2">
         <svg width="14" height="96" viewBox="0 0 14 96" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path

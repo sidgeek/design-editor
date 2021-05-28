@@ -55,6 +55,46 @@ function useCoreHandler() {
     [canvas]
   )
 
+  /**
+   * Clone the selected object
+   */
+
+  const cloneOject = useCallback(() => {
+    if (canvas) {
+      //@ts-ignore
+      const workarea = canvas.getObjects().find(obj => obj.id === 'workarea')
+
+      activeObject?.clone((clone: fabric.Object) => {
+        clone.set({
+          left: activeObject?.left! + 10,
+          top: activeObject?.top! + 10,
+        })
+        clone.clipPath = workarea
+        canvas.add(clone)
+        canvas.setActiveObject(clone)
+        canvas.requestRenderAll()
+      })
+    }
+  }, [canvas, activeObject])
+
+  const deleteObject = useCallback(() => {
+    if (canvas && activeObject) {
+      canvas.remove(activeObject as fabric.Object)
+    }
+  }, [canvas, activeObject])
+  /**
+   * Update selected object
+   */
+  const updateObject = useCallback(
+    (key, value) => {
+      if (canvas && activeObject) {
+        activeObject.set(key, value)
+        canvas.requestRenderAll()
+      }
+    },
+    [canvas, activeObject]
+  )
+
   // Update properties, optional set metadata if present
   const setProperty = useCallback(
     (property, value) => {
@@ -95,7 +135,17 @@ function useCoreHandler() {
     [canvas]
   )
 
-  return { exportJSON, loadJSON, setCanvasBackgroundColor, addObject, setProperty, resizeCanvas }
+  return {
+    exportJSON,
+    loadJSON,
+    setCanvasBackgroundColor,
+    addObject,
+    setProperty,
+    resizeCanvas,
+    cloneOject,
+    deleteObject,
+    updateObject,
+  }
 }
 
 export default useCoreHandler

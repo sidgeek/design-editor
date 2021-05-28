@@ -1,19 +1,21 @@
 import ReactDOM from 'react-dom'
-import Editor from '@components/Editor'
+import AppContainer from './containers/AppContainer'
 import reportWebVitals from './reportWebVitals'
 import { CanvasProvider } from '@components/Canvas'
 import { ChakraProvider } from '@chakra-ui/react'
-
+import { AppProvider } from './contexts/AppContext'
 import 'focus-visible/dist/focus-visible'
 import './i18n/index'
 import './index.css'
 
 ReactDOM.render(
-  <CanvasProvider>
-    <ChakraProvider>
-      <Editor />
-    </ChakraProvider>
-  </CanvasProvider>,
+  <AppProvider>
+    <CanvasProvider>
+      <ChakraProvider>
+        <AppContainer />
+      </ChakraProvider>
+    </CanvasProvider>
+  </AppProvider>,
   document.getElementById('root')
 )
 
