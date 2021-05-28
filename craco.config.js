@@ -8,6 +8,8 @@ module.exports = {
       '@': resloveSrc(),
       '@assets': resloveSrc('assets'),
       '@components': resloveSrc('components'),
+      '@contexts': resloveSrc('contexts'),
+      '@views': resloveSrc('views'),
       '@scenes': resloveSrc('scenes'),
       '@store': resloveSrc('store'),
       '@services': resloveSrc('services'),

@@ -8,8 +8,21 @@ interface CanvasContext {
   setCanvas: (canvas: fabric.Canvas) => void
   activeObject: fabric.Object | null
   setActiveObject: (object: fabric.Object | null) => void
+  contextMenu: ContextMenu
+  setContextMenu: (option: ContextMenu) => void
+  canvasType: CanvasType
+  setCanvasType: (option: CanvasType) => void
 }
 
+export type CanvasType = 'editor' | 'previews'
+export type ToolboxType = 'textbox' | 'image' | 'previews' | 'default'
+export type ContextMenuType = 'canvas' | 'object'
+export interface ContextMenu {
+  type: ContextMenuType
+  visible: boolean
+  top: number
+  left: number
+}
 export const Context = createContext<CanvasContext>({
   zoomRatio: 1,
   setZoomRatio: () => {},
@@ -17,13 +30,36 @@ export const Context = createContext<CanvasContext>({
   setCanvas: () => {},
   activeObject: null,
   setActiveObject: () => {},
+  contextMenu: { top: 0, left: 0, visible: false, type: 'canvas' },
+  setContextMenu: () => {},
+  canvasType: 'editor',
+  setCanvasType: () => {},
 })
 
 export const CanvasProvider: FC = ({ children }) => {
   const [canvas, setCanvas] = useState<fabric.Canvas | null>(null)
   const [activeObject, setActiveObject] = useState<fabric.Object | null>(null)
   const [zoomRatio, setZoomRatio] = useState(1)
-  const context = { canvas, setCanvas, activeObject, setActiveObject, zoomRatio, setZoomRatio }
+  const [canvasType, setCanvasType] = useState<CanvasType>('editor')
+  const [contextMenu, setContextMenu] = useState<ContextMenu>({
+    top: 0,
+    left: 0,
+    visible: false,
+    type: 'canvas',
+  })
+
+  const context = {
+    canvas,
+    setCanvas,
+    activeObject,
+    setActiveObject,
+    zoomRatio,
+    setZoomRatio,
+    contextMenu,
+    setContextMenu,
+    canvasType,
+    setCanvasType,
+  }
 
   return <Context.Provider value={context}>{children}</Context.Provider>
 }

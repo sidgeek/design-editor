@@ -3,12 +3,49 @@ import { useCanvasContext } from '@components/Canvas/hooks'
 import { isArrow, isCtrlShiftZ, isCtrlZ } from '../utils/keyboard'
 
 function useEventHandlers() {
-  const { canvas, setActiveObject, activeObject, setZoomRatio } = useCanvasContext()
+  const {
+    canvas,
+    setActiveObject,
+    activeObject,
+    setZoomRatio,
+    contextMenu,
+    setContextMenu,
+  } = useCanvasContext()
+
+  /**
+   * Canvas Mouse down handler
+   */
+  const onMouseDown = useCallback(
+    (e: any) => {
+      if (e.button === 3 && e.target) {
+        // @ts-ignore
+        setContextMenu({
+          ...contextMenu,
+          visible: true,
+          left: e.e.offsetX,
+          top: e.e.offsetY,
+        })
+      } else {
+        setContextMenu({ ...contextMenu, visible: false })
+      }
+    },
+    [canvas, contextMenu]
+  )
+
+  useEffect(() => {
+    if (canvas) {
+      canvas.on('mouse:down', onMouseDown)
+    }
+    return () => {
+      if (canvas) {
+        canvas.off('mouse:down', onMouseDown)
+      }
+    }
+  }, [canvas, contextMenu])
 
   /**
    * Canvas Mouse wheel handler
    */
-
   const onMouseWheel = useCallback(
     event => {
       if (canvas && event.e.ctrlKey) {

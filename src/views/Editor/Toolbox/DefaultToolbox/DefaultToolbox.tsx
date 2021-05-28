@@ -1,9 +1,8 @@
 import { useCoreHandler } from '@/components/Canvas/handlers'
 import { CSSProperties, useState } from 'react'
 import { TwitterPicker } from 'react-color'
+import { Flex, Box } from '@chakra-ui/react'
 import emptyColorPlaceholder from '@/assets/images/base-color-picker.png'
-import './DefaultToobox.scss'
-// import './Toolbox.css'
 
 function VerticalSeparator() {
   return <div className="vertical-separator"></div>
@@ -42,31 +41,25 @@ function Toolbox() {
     setOptions({ ...options, backgroundColor: color.hex })
   }
   return (
-    <div className="editor-toolbox-container">
-      <div className="editor-toolbox default">
-        <div style={{ position: 'relative' }}>
-          <div style={{ cursor: 'pointer' }} onClick={handleClick}>
-            {options.backgroundColor === '#ffffff' ? (
-              <img
-                style={{ height: '30px', display: 'flex' }}
-                src={emptyColorPlaceholder}
-                alt="color picker"
-              />
-            ) : (
-              <div style={{ background: options.backgroundColor }} className="editor-color-holder" />
-            )}
-          </div>
-
-          {dropdown.displayColorPicker ? (
-            <div style={popover}>
-              <div style={cover} onClick={handleClose} />
-              <TwitterPicker color={options.backgroundColor} onChange={onColorChange} />
-            </div>
-          ) : null}
+    <Flex height={54} alignItems="center" padding={'0 1rem'}>
+      <div style={{ position: 'relative' }}>
+        <div style={{ cursor: 'pointer' }} onClick={handleClick}>
+          {options.backgroundColor === '#ffffff' ? (
+            <img style={{ height: '30px', display: 'flex' }} src={emptyColorPlaceholder} alt="color picker" />
+          ) : (
+            <Box style={{ background: options.backgroundColor }} height={30} width={30} />
+          )}
         </div>
-        <VerticalSeparator />
+
+        {dropdown.displayColorPicker ? (
+          <div style={popover}>
+            <div style={cover} onClick={handleClose} />
+            <TwitterPicker color={options.backgroundColor} onChange={onColorChange} />
+          </div>
+        ) : null}
       </div>
-    </div>
+      <VerticalSeparator />
+    </Flex>
   )
 }
 

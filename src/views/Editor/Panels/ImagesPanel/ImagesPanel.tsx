@@ -3,7 +3,7 @@ import { Input, InputGroup, InputLeftElement } from '@chakra-ui/react'
 import { SearchIcon } from '@chakra-ui/icons'
 import { getPixabayImages, PixabayImage } from '@services/pixabay'
 import { useDebounce } from 'use-debounce'
-import { useCoreHandler } from '@/components/Canvas/handlers'
+import { useCoreHandler } from '@components/Canvas/handlers'
 
 function ImagesPanel() {
   const [search, setSearch] = useState('')
