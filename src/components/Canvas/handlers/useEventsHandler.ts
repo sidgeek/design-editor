@@ -4,45 +4,6 @@ import { isArrow, isCtrlShiftZ, isCtrlZ } from '../utils/keyboard'
 
 function useEventHandlers() {
   const { canvas, setActiveObject, activeObject, setZoomRatio } = useCanvasContext()
-  // const [isDragging, setIsDragging] = useState(false)
-
-  /**
-   * Canvas Mouse wheel handler
-   */
-
-  // const onMouseDown = useCallback(
-  //   event => {
-  //     if (canvas && event.e.altKey) {
-  //       setIsDragging(true)
-
-  //       const delta = event.e.deltaY
-  //       const lastPosX = event.e.clientX
-  //       const lastPosY = event.e.clientY
-
-  //       // let zoomRatio = canvas.getZoom()
-  //       // if (delta > 0) {
-  //       //   zoomRatio -= 0.04
-  //       // } else {
-  //       //   zoomRatio += 0.04
-  //       // }
-  //       // setZoomRatio(zoomRatio)
-  //     }
-  //     event.e.preventDefault()
-  //     event.e.stopPropagation()
-  //   },
-  //   [canvas]
-  // )
-
-  // useEffect(() => {
-  //   if (canvas) {
-  //     canvas.on('mouse:down', onMouseDown)
-  //   }
-  //   return () => {
-  //     if (canvas) {
-  //       canvas.off('mouse:down', onMouseDown)
-  //     }
-  //   }
-  // }, [canvas])
 
   /**
    * Canvas Mouse wheel handler
@@ -54,10 +15,12 @@ function useEventHandlers() {
         const delta = event.e.deltaY
         let zoomRatio = canvas.getZoom()
         if (delta > 0) {
-          zoomRatio -= 0.04
+          zoomRatio -= 0.05
         } else {
-          zoomRatio += 0.04
+          zoomRatio += 0.05
         }
+        if (zoomRatio < 0.1) zoomRatio = 0.1
+        if (zoomRatio > 3) zoomRatio = 3
         setZoomRatio(zoomRatio)
       }
       event.e.preventDefault()
