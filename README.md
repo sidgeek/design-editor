@@ -56,7 +56,11 @@ REACT_APP_PIXABAY_KEY="your-key"
 
 ## Contribution
 
-Feel free to contribute by opening issues with any questions, bug reports or feature requests.
+Feel free to contribute by opening issues with any questions, bug reports or feature requests. Or, you can buy me a coffee.
+
+<p>
+<a href="https://www.buymeacoffee.com/xorb" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/default-orange.png" alt="Buy Me A Coffee" style="height: 51px !important;width: 217px !important; border-radius: 0.5rem !important;" width="217" height="51"></a><br>
+</p>
 
 ## Author
 
