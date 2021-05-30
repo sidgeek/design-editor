@@ -1,4 +1,4 @@
-# React Design Editor
+# Design Editor
 
 React design editor using FabricJS. Create images in React, draw diagrams and arrange compositions using the image editor and save the result to one of several export formats, provides functionality similar to canva.com.
 
