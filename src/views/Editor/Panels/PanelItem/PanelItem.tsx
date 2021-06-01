@@ -4,6 +4,7 @@ import ObjectsPanel from '../ObjectsPanel/ObjectsPanel'
 import TemplatesPanel from '../TemplatesPanel/TemplatesPanel'
 import TextPanel from '../TextPanel/TextPanel'
 import VideosPanel from '../VideosPanel/VideosPanel'
+import LayersPanel from '../LayersPanel/LayersPanel'
 import { Scrollbars } from 'react-custom-scrollbars'
 import classNames from 'classnames'
 import './PanelItem.scss'
@@ -31,6 +32,7 @@ function PanelItem({ panelOpen, activeTab }: Props) {
           {activeTab === 'objects' && <ObjectsPanel />}
           {activeTab === 'templates' && <TemplatesPanel />}
           {activeTab === 'videos' && <VideosPanel />}
+          {activeTab === 'layers' && <LayersPanel />}
         </Scrollbars>
       </div>
     </div>

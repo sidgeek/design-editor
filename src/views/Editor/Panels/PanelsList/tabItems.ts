@@ -20,6 +20,11 @@ export const tabItems = [
     name: 'objects',
   },
   {
+    icon: 'layers',
+    label: 'Katmanlar',
+    name: 'layers',
+  },
+  {
     icon: 'musics',
     label: 'Müzik',
     name: 'musics',
