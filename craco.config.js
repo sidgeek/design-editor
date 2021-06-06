@@ -9,11 +9,12 @@ module.exports = {
       '@assets': resloveSrc('assets'),
       '@components': resloveSrc('components'),
       '@contexts': resloveSrc('contexts'),
-      '@views': resloveSrc('views'),
+      '@hooks': resloveSrc('hooks'),
       '@scenes': resloveSrc('scenes'),
       '@store': resloveSrc('store'),
       '@services': resloveSrc('services'),
       '@utils': resloveSrc('utils'),
+      '@handlers': resloveSrc('handlers'),
     },
   },
 }
