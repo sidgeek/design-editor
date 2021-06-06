@@ -1,7 +1,7 @@
 import { useEffect, useRef, FC } from 'react'
 import { Flex } from '@chakra-ui/react'
 import ResizeObserver from 'resize-observer-polyfill'
-import { useAppContext } from '@/contexts/AppContext'
+import { useAppContext } from '@contexts/app/AppContext'
 
 const AppBox: FC = ({ children }) => {
   const containerRef = useRef<HTMLDivElement>()

@@ -1,8 +1,9 @@
 import { useEffect } from 'react'
 import { fabric } from 'fabric'
-import { useCanvasContext } from '@components/Canvas/hooks'
+import { useCanvasContext } from '@/hooks'
 import { Flex } from '@chakra-ui/react'
-import ContextMenu from '@/views/Editor/ContextMenu'
+import ContextMenu from '@components/ContextMenu'
+
 import {
   useCustomizationHandler,
   useEventsHandler,
@@ -10,7 +11,7 @@ import {
   useContainerHandler,
   useGuidelinesHandler,
   usePanningHandler,
-} from '@components/Canvas/handlers'
+} from '@/handlers'
 
 function Canvas() {
   const containerRef = useContainerHandler()
