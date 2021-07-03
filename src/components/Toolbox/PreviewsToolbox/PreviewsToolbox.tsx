@@ -1,6 +1,6 @@
-import { Flex } from '@chakra-ui/react'
+import { Flex } from 'theme-ui'
 function PreviewsToolbox() {
-  return <Flex height={54}></Flex>
+  return <Flex sx={{ height: 54 }}></Flex>
 }
 
 export default PreviewsToolbox

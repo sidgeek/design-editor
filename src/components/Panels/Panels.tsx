@@ -1,10 +1,9 @@
+import { Flex } from 'theme-ui'
 import { useState } from 'react'
 import ClosePanel from './ClosePanel'
 import PanelItemsList from './PanelsList/PanelsList'
 import PanelItem from './PanelItem/PanelItem'
 import { useCanvasContext } from '@/hooks'
-
-import './Panels.scss'
 
 function Panels() {
   const [panelOpen, setPanelOpen] = useState(true)
@@ -15,7 +14,14 @@ function Panels() {
   }
   const isPanelOpen = canvasType === 'editor' && panelOpen
   return (
-    <div className="panels">
+    <Flex
+      sx={{
+        position: 'relative',
+        background: '#29303a',
+        boxShadow: '5px 0 5px -5px rgba(0, 0, 0, 0.5)',
+        userSelect: 'none',
+      }}
+    >
       <PanelItemsList
         setPanelOpen={setPanelOpen}
         panelOpen={isPanelOpen}
@@ -24,7 +30,7 @@ function Panels() {
       />
       <PanelItem activeTab={activeTab} panelOpen={isPanelOpen} />
       <ClosePanel panelOpen={isPanelOpen} closePanel={closePanel} />
-    </div>
+    </Flex>
   )
 }
 

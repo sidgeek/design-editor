@@ -1,15 +1,17 @@
 import { useCanvasContext } from '@/hooks'
-import { Flex } from '@chakra-ui/react'
+import { Flex } from 'theme-ui'
 function Slides() {
   const { canvasType } = useCanvasContext()
   return (
     <Flex
-      display={canvasType === 'previews' ? 'block' : 'none'}
-      flex={1}
-      background="#ecf0f1"
-      position={'absolute'}
-      height="100%"
-      width="100%"
+      sx={{
+        display: canvasType === 'previews' ? 'block' : 'none',
+        flex: 1,
+        background: '#ecf0f1',
+        position: 'absolute',
+        height: '100%',
+        width: '100%',
+      }}
     >
       Slides
     </Flex>

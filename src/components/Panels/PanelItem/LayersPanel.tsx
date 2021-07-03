@@ -23,7 +23,7 @@ function LayersPanel() {
   }, [canvas])
   return (
     <>
-      <div style={{ padding: '1rem 2rem' }}>
+      <div style={{ padding: '2rem 2rem 1rem' }}>
         <div style={{ display: 'grid', gap: '0.6rem', color: 'rgba(255,255,255,0.1)' }}>
           {layers.map(layer => {
             return (

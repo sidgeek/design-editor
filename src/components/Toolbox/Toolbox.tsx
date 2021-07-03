@@ -1,6 +1,5 @@
 import { useCanvasContext } from '@/hooks'
 import DefaultToolbox from './DefaultToolbox/DefaultToolbox'
-import TextToolbox from './TextToolbox/TextToolbox'
 import PreviewsToolbox from './PreviewsToolbox'
 
 function Toolbox() {
@@ -14,7 +13,7 @@ function Toolbox() {
   }
   const activeObjectType = activeObject.type
 
-  return <div>{activeObjectType === 'textbox' ? <TextToolbox /> : <DefaultToolbox />}</div>
+  return <div>{activeObjectType === 'textbox' ? <DefaultToolbox /> : <DefaultToolbox />}</div>
 }
 
 export default Toolbox

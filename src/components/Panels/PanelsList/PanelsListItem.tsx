@@ -1,6 +1,5 @@
 import classNames from 'classnames'
 import PanelItemIcon from './PanelItemIcon'
-// import "./Item.less"
 
 interface Props {
   activeTab: string

@@ -1,9 +1,9 @@
 import { useEffect, useRef, FC } from 'react'
-import { Flex } from '@chakra-ui/react'
+import { Flex } from 'theme-ui'
 import ResizeObserver from 'resize-observer-polyfill'
 import { useAppContext } from '@contexts/app/AppContext'
 
-const AppBox: FC = ({ children }) => {
+function AppBox({ children }) {
   const containerRef = useRef<HTMLDivElement>()
   const { isMobile, setIsMobile } = useAppContext()
   useEffect(() => {
@@ -31,7 +31,14 @@ const AppBox: FC = ({ children }) => {
   }
 
   return (
-    <Flex ref={containerRef} flex={1} height="100vh" width="100vw">
+    <Flex
+      ref={containerRef}
+      sx={{
+        flex: 1,
+        height: '100vh',
+        width: '100vw',
+      }}
+    >
       {children}
     </Flex>
   )
