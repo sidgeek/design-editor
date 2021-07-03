@@ -1,11 +1,16 @@
-import { Flex } from '@chakra-ui/react'
+import { Flex } from 'theme-ui'
 import Canvas from '@components/Canvas'
 import Slides from '@components/Slides'
 function CanvasArea() {
   return (
-    <Flex flex={1} position={'relative'}>
+    <Flex
+      sx={{
+        flex: 1,
+        position: 'relative',
+      }}
+    >
       <Canvas />
-      <Slides />
+      {/* <Slides /> */}
     </Flex>
   )
 }

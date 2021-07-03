@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react'
-import { Input, InputGroup, InputLeftElement } from '@chakra-ui/react'
-import { SearchIcon } from '@chakra-ui/icons'
+import { Input, Grid, Box, Flex } from 'theme-ui'
 import { getPixabayImages, PixabayImage } from '@services/pixabay'
 import { useDebounce } from 'use-debounce'
 import { useCoreHandler } from '@/handlers'
@@ -35,20 +34,17 @@ function ImagesPanel() {
 
   return (
     <>
-      <div style={{ padding: '1rem 2rem' }}>
-        <InputGroup>
-          <InputLeftElement pointerEvents="none" children={<SearchIcon color="gray.300" />} />
-          <Input
-            onChange={e => setSearch(e.target.value)}
-            style={{ background: '#fff' }}
-            type="tel"
-            placeholder="Search images"
-          />
-        </InputGroup>
-      </div>
-      <div
-        style={{
-          display: 'grid',
+      <Box sx={{ padding: '2rem 2rem 1rem' }}>
+        <Input
+          onChange={e => setSearch(e.target.value)}
+          style={{ background: '#fff' }}
+          type="tel"
+          placeholder="Search images"
+        />
+      </Box>
+
+      <Grid
+        sx={{
           gridTemplateColumns: '1fr 1fr',
           gap: '1rem',
           padding: '1rem 2rem',
@@ -56,19 +52,18 @@ function ImagesPanel() {
         className="objects-list"
       >
         {images.map(img => (
-          <div
+          <Flex
             key={img.id}
-            style={{
-              display: 'flex',
+            sx={{
               alignItems: 'center',
               cursor: 'pointer',
             }}
             onClick={() => addImageToCanvas(img.webformatURL)}
           >
             <img width="100%" src={img.previewURL} alt="preview" />
-          </div>
+          </Flex>
         ))}
-      </div>
+      </Grid>
     </>
   )
 }

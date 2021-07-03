@@ -2,18 +2,18 @@ import ReactDOM from 'react-dom'
 import AppContainer from './containers/AppContainer'
 import reportWebVitals from './reportWebVitals'
 import { CanvasProvider } from '@contexts/canvas'
-import { ChakraProvider } from '@chakra-ui/react'
 import { AppProvider } from './contexts/app/AppContext'
-import 'focus-visible/dist/focus-visible'
 import './i18n/index'
-import './index.css'
-
+import { ThemeProvider } from 'theme-ui'
+import theme from './theme'
+import 'focus-visible/dist/focus-visible'
+import './styles/styles.scss'
 ReactDOM.render(
   <AppProvider>
     <CanvasProvider>
-      <ChakraProvider>
+      <ThemeProvider theme={theme}>
         <AppContainer />
-      </ChakraProvider>
+      </ThemeProvider>
     </CanvasProvider>
   </AppProvider>,
   document.getElementById('root')

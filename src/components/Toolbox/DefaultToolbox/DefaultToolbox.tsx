@@ -1,7 +1,7 @@
 import { useCoreHandler } from '@/handlers'
 import { CSSProperties, useState } from 'react'
 import { TwitterPicker } from 'react-color'
-import { Flex, Box } from '@chakra-ui/react'
+import { Flex, Box } from 'theme-ui'
 import emptyColorPlaceholder from '@/assets/images/base-color-picker.png'
 
 function VerticalSeparator() {
@@ -41,13 +41,25 @@ function Toolbox() {
     setOptions({ ...options, backgroundColor: color.hex })
   }
   return (
-    <Flex height={54} alignItems="center" padding={'0 1rem'}>
+    <Flex
+      sx={{
+        height: 54,
+        alignItems: 'center',
+        padding: '0 1rem',
+      }}
+    >
       <div style={{ position: 'relative' }}>
         <div style={{ cursor: 'pointer' }} onClick={handleClick}>
           {options.backgroundColor === '#ffffff' ? (
             <img style={{ height: '30px', display: 'flex' }} src={emptyColorPlaceholder} alt="color picker" />
           ) : (
-            <Box style={{ background: options.backgroundColor }} height={30} width={30} />
+            <Box
+              sx={{
+                background: options.backgroundColor,
+                height: 30,
+                width: 30,
+              }}
+            />
           )}
         </div>
 

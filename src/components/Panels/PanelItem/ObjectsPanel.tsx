@@ -1,9 +1,8 @@
 import { useEffect, useState } from 'react'
-import { Input, InputGroup, InputLeftElement } from '@chakra-ui/react'
-import { SearchIcon } from '@chakra-ui/icons'
 import { getImage, getImages } from '@services/iconscout'
 import { useDebounce } from 'use-debounce'
 import { useCoreHandler } from '@/handlers'
+import { Input, Grid, Flex } from 'theme-ui'
 
 function ObjectsPanel() {
   const [search, setSearch] = useState('')
@@ -12,7 +11,7 @@ function ObjectsPanel() {
 
   const { addObject } = useCoreHandler()
   useEffect(() => {
-    getImages('love')
+    getImages('people')
       .then((data: any) => setObjects(data))
       .catch(console.log)
   }, [])
@@ -24,15 +23,6 @@ function ObjectsPanel() {
         .catch(console.log)
     }
   }, [value])
-  const renderItems = () => {
-    return objects.map(obj => {
-      return (
-        <div className="object-item-container" onClick={() => downloadImage(obj.uuid)} key={obj.uuid}>
-          <img className="object-item" src={obj.urls.thumb} />
-        </div>
-      )
-    })
-  }
   const downloadImage = uuid => {
     getImage(uuid)
       .then(url => {
@@ -47,20 +37,36 @@ function ObjectsPanel() {
 
   return (
     <>
-      <div style={{ padding: '1rem 2rem' }}>
-        <InputGroup>
-          <InputLeftElement pointerEvents="none" children={<SearchIcon color="gray.300" />} />
-          <Input
-            onChange={e => setSearch(e.target.value)}
-            style={{ background: '#fff' }}
-            type="tel"
-            placeholder="Search objects"
-          />
-        </InputGroup>
+      <div style={{ padding: '2rem 2rem 1rem' }}>
+        <Input
+          onChange={e => setSearch(e.target.value)}
+          style={{ background: '#fff' }}
+          type="tel"
+          placeholder="Search objects"
+        />
       </div>
-      <div style={{ padding: '0 2rem' }} className="objects-list">
-        {renderItems()}
-      </div>
+
+      <Grid
+        sx={{
+          gridTemplateColumns: '1fr 1fr',
+          gap: '1rem',
+          padding: '1rem 2rem',
+        }}
+      >
+        {objects.map(obj => (
+          <Flex
+            key={obj.id}
+            sx={{
+              alignItems: 'center',
+              cursor: 'pointer',
+              justifyContent: 'center',
+            }}
+            onClick={() => downloadImage(obj.uuid)}
+          >
+            <img width="80%" src={obj.urls.thumb} />
+          </Flex>
+        ))}
+      </Grid>
     </>
   )
 }

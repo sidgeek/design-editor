@@ -1,7 +1,7 @@
-import { Flex } from '@chakra-ui/react'
+import { Flex } from 'theme-ui'
 import Navbar from '@components/Navbar/Navbar'
 import Panels from '@components/Panels/Panels'
-import FooterMenu from '@components/FooterMenu/FooterMenu'
+// import FooterMenu from '@components/FooterMenu/FooterMenu'
 import Toolbox from '@components/Toolbox/Toolbox'
 import CanvasArea from '@components/CanvasArea/CanvasArea'
 import NotSupported from '@components/NotSupported'
@@ -11,19 +11,24 @@ function Editor() {
   const { isMobile } = useAppContext()
 
   return (
-    <Flex flex={1} flexDirection="column">
+    <Flex sx={{ flex: 1, flexDirection: 'column' }}>
       <Navbar />
       {isMobile === undefined ? (
         <div>Loading</div>
       ) : isMobile ? (
         <NotSupported />
       ) : (
-        <Flex flex={1}>
+        <Flex sx={{ flex: 1 }}>
           <Panels />
-          <Flex flex={1} flexDirection="column">
+          <Flex
+            sx={{
+              flex: 1,
+              flexDirection: 'column',
+            }}
+          >
             <Toolbox />
             <CanvasArea />
-            <FooterMenu />
+            {/* <FooterMenu /> */}
           </Flex>
         </Flex>
       )}

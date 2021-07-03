@@ -1,21 +1,21 @@
-import styled from '@emotion/styled'
+import { Flex } from 'theme-ui'
 
-const Container = styled.div({
-  background: '#0e1419',
-  color: 'rgba(255,255,255,0.7)',
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'center',
-  flex: 1,
-  textAlign: 'center',
-  paddingBottom: '1rem',
-})
 function NotSupported() {
   return (
-    <Container>
+    <Flex
+      sx={{
+        background: '#0e1419',
+        color: 'rgba(255,255,255,0.7)',
+        alignItems: 'center',
+        justifyContent: 'center',
+        flex: 1,
+        textAlign: 'center',
+        paddingBottom: '1rem',
+      }}
+    >
       Your screen size is not supported <br />
       Try with a bigger one
-    </Container>
+    </Flex>
   )
 }
 export default NotSupported

@@ -1,8 +1,7 @@
-import { Flex } from '@chakra-ui/react'
+import { Flex, IconButton, Input } from 'theme-ui'
 import { useState } from 'react'
 import { useCanvasContext } from '@/hooks'
 import { DownloadIcon, LogoIcon, GithubIcon } from './NavbarIcons'
-import { ButtonGroup, Input } from '@chakra-ui/react'
 
 function Navbar() {
   const { canvas } = useCanvasContext()
@@ -27,32 +26,39 @@ function Navbar() {
 
   return (
     <Flex
-      fontFamily="Mukta"
-      height="60px"
-      background="linear-gradient(90deg, #00c4cc, #7d2ae8)"
-      justifyContent="space-between"
-      color="#fff"
-      padding="0 1rem"
+      sx={{
+        fontFamily: 'Mukta',
+        height: '60px',
+        background: 'linear-gradient(90deg, #00c4cc, #7d2ae8)',
+        justifyContent: 'space-between',
+        color: '#fff',
+        padding: '0 1rem',
+      }}
     >
-      <Flex alignItems="center">
+      <Flex sx={{ alignItems: 'center' }}>
         <LogoIcon height="36px" />
       </Flex>
-      <Flex alignItems="center">
+
+      <Flex sx={{ alignItems: 'center' }}>
         <Input
+          sx={{ textAlign: 'center', border: 'none', outline: 0 }}
           value={templateName}
           onChange={e => setTemplateName(e.target.value)}
-          textAlign="center"
-          border="none"
-          placeholder="Hello"
+          placeholder="New template"
         />
       </Flex>
-      <Flex alignItems="center">
-        <ButtonGroup spacing={3}>
+      <Flex sx={{ alignItems: 'center' }}>
+        <IconButton>
           <DownloadIcon style={{ color: '#fff' }} onClick={downloadImage} />
-          <a style={{ color: '#fff', outline: 'none' }} href="https://github.com/xorb/react-design-editor">
+        </IconButton>
+        <a
+          style={{ color: '#fff', outline: 'none', marginLeft: '1rem' }}
+          href="https://github.com/xorb/react-design-editor"
+        >
+          <IconButton>
             <GithubIcon />
-          </a>
-        </ButtonGroup>
+          </IconButton>
+        </a>
       </Flex>
     </Flex>
   )

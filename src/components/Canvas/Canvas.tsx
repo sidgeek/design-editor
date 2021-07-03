@@ -1,7 +1,7 @@
 import { useEffect } from 'react'
 import { fabric } from 'fabric'
 import { useCanvasContext } from '@/hooks'
-import { Flex } from '@chakra-ui/react'
+import { Flex, Box } from 'theme-ui'
 import ContextMenu from '@components/ContextMenu'
 
 import {
@@ -55,7 +55,7 @@ function Canvas() {
   }, [])
 
   return (
-    <Flex flex={1} position="relative">
+    <Flex sx={{ flex: 1, position: 'relative' }}>
       <ContextMenu />
       <div style={{ width: '100%', height: '100%', position: 'absolute' }}>
         <div style={{ height: '100%' }} className="editor-canvas" ref={containerRef}>
