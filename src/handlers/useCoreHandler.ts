@@ -34,6 +34,22 @@ function useCoreHandler() {
     },
     [canvas]
   )
+
+  const resizeWorkarea = useCallback(
+    (width: number, height: number) => {
+      if (canvas) {
+        //@ts-ignore
+        const workarea = canvas.getObjects().find(obj => obj.id === 'workarea')
+        workarea.set({
+          width,
+          height,
+        })
+        workarea.center()
+        canvas.requestRenderAll()
+      }
+    },
+    [canvas]
+  )
   // Add objects to canvas
   const addObject = useCallback(
     async options => {
@@ -145,6 +161,7 @@ function useCoreHandler() {
     cloneOject,
     deleteObject,
     updateObject,
+    resizeWorkarea,
   }
 }
 

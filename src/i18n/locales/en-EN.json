@@ -2,6 +2,7 @@
   "editor": {
     "panel": {
       "items": {
+        "project": "Project",
         "formats": "Formats",
         "templates": "Templates",
         "images": "Images",
