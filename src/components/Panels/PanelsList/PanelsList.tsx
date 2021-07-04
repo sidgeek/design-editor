@@ -19,6 +19,7 @@ function PanelItems(props: Props) {
         width: '70px',
         background: '#0e1419',
         color: '#fff',
+        paddingTop: '0.4rem',
       }}
     >
       <Scrollbars

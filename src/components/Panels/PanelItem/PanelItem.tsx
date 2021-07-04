@@ -6,6 +6,7 @@ import TemplatesPanel from './TemplatesPanel'
 import TextPanel from './TextPanel'
 import VideosPanel from './VideosPanel'
 import LayersPanel from './LayersPanel'
+import ProjectPanel from './ProjectPanel'
 import { Scrollbars } from 'react-custom-scrollbars'
 import classNames from 'classnames'
 
@@ -33,6 +34,7 @@ function PanelItem({ panelOpen, activeTab }: Props) {
           {activeTab === 'templates' && <TemplatesPanel />}
           {activeTab === 'videos' && <VideosPanel />}
           {activeTab === 'layers' && <LayersPanel />}
+          {activeTab === 'project' && <ProjectPanel />}
         </Scrollbars>
       </Box>
     </div>

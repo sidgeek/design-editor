@@ -4,10 +4,6 @@ import { TwitterPicker } from 'react-color'
 import { Flex, Box } from 'theme-ui'
 import emptyColorPlaceholder from '@/assets/images/base-color-picker.png'
 
-function VerticalSeparator() {
-  return <div className="vertical-separator"></div>
-}
-
 function Toolbox() {
   const [dropdown, setDropdown] = useState({
     displayColorPicker: false,
@@ -46,6 +42,7 @@ function Toolbox() {
         height: 54,
         alignItems: 'center',
         padding: '0 1rem',
+        justifyContent: 'space-between',
       }}
     >
       <div style={{ position: 'relative' }}>
@@ -70,7 +67,6 @@ function Toolbox() {
           </div>
         ) : null}
       </div>
-      <VerticalSeparator />
     </Flex>
   )
 }

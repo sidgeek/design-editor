@@ -7,7 +7,7 @@ import { useCanvasContext } from '@/hooks'
 
 function Panels() {
   const [panelOpen, setPanelOpen] = useState(true)
-  const [activeTab, setActiveTab] = useState('images')
+  const [activeTab, setActiveTab] = useState('project')
   const { canvasType } = useCanvasContext()
   const closePanel = () => {
     setPanelOpen(!panelOpen)
