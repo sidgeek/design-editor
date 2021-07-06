@@ -1,5 +1,5 @@
-import { ReactNode, useEffect, useState } from 'react'
-import { Input, Box, Flex } from 'theme-ui'
+import { ReactNode, useState } from 'react'
+import { Box, Flex } from 'theme-ui'
 import Scrollbars from 'react-custom-scrollbars'
 import { useCoreHandler } from '@/handlers'
 interface Format {
@@ -47,19 +47,6 @@ function Option({ format, onClick }: OptionProp) {
       <Box sx={{ color: 'rgba(255,255,255,0.6)' }}>{format.label}</Box>
     </Flex>
   )
-}
-
-interface Item {
-  size: string
-  label: string
-  id: string
-}
-// options value  placeholder onchange
-interface SelectProps {
-  children: ReactNode
-  value: Item
-  placeholder: any
-  onChange: () => void
 }
 
 function Select({ onChange, value }: any) {

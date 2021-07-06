@@ -18,7 +18,6 @@ function useEventHandlers() {
   const onMouseDown = useCallback(
     (e: any) => {
       if (e.button === 3 && e.target) {
-        // @ts-ignore
         setContextMenu({
           ...contextMenu,
           visible: true,
@@ -80,7 +79,6 @@ function useEventHandlers() {
   /**
    * Canvas selection handlers
    */
-
   const onSelect = useCallback(
     ({ target }) => {
       if (target) {
@@ -113,15 +111,9 @@ function useEventHandlers() {
    * Keyboard Events Handler
    */
 
-  const undo = useCallback(() => {
-    // @ts-ignore
-    canvas?.undo()
-  }, [canvas])
+  const undo = useCallback(() => {}, [canvas])
 
-  const redo = useCallback(() => {
-    // @ts-ignore
-    canvas?.redo()
-  }, [canvas])
+  const redo = useCallback(() => {}, [canvas])
 
   const moveUp = useCallback(() => {
     if (activeObject && canvas) {

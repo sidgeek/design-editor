@@ -45,8 +45,10 @@ function DeleteIcon() {
   )
 }
 
-export default {
+const icons = {
   copy: <CopyIcon />,
   delete: <DeleteIcon />,
   paste: <PasteIcon />,
 }
+
+export default icons
