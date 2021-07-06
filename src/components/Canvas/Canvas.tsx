@@ -1,7 +1,7 @@
 import { useEffect } from 'react'
 import { fabric } from 'fabric'
 import { useCanvasContext } from '@/hooks'
-import { Flex, Box } from 'theme-ui'
+import { Flex } from 'theme-ui'
 import ContextMenu from '@components/ContextMenu'
 
 import {

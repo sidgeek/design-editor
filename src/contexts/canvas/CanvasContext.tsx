@@ -1,6 +1,6 @@
 import { FC, createContext, useState } from 'react'
 import { fabric } from 'fabric'
-
+import { ContextMenu, CanvasType } from '@common/interfaces'
 interface CanvasContext {
   zoomRatio: number
   setZoomRatio: (value: number) => void
@@ -14,15 +14,6 @@ interface CanvasContext {
   setCanvasType: (option: CanvasType) => void
 }
 
-export type CanvasType = 'editor' | 'previews'
-export type ToolboxType = 'textbox' | 'image' | 'previews' | 'default'
-export type ContextMenuType = 'canvas' | 'object'
-export interface ContextMenu {
-  type: ContextMenuType
-  visible: boolean
-  top: number
-  left: number
-}
 export const Context = createContext<CanvasContext>({
   zoomRatio: 1,
   setZoomRatio: () => {},

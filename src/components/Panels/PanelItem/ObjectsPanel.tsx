@@ -63,7 +63,7 @@ function ObjectsPanel() {
             }}
             onClick={() => downloadImage(obj.uuid)}
           >
-            <img width="80%" src={obj.urls.thumb} />
+            <img width="80%" src={obj.urls.thumb} alt="svg object" />
           </Flex>
         ))}
       </Grid>

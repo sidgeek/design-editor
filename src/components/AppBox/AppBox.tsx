@@ -1,4 +1,4 @@
-import { useEffect, useRef, FC } from 'react'
+import { useEffect, useRef } from 'react'
 import { Flex } from 'theme-ui'
 import ResizeObserver from 'resize-observer-polyfill'
 import { useAppContext } from '@contexts/app/AppContext'
@@ -6,20 +6,7 @@ import { useAppContext } from '@contexts/app/AppContext'
 function AppBox({ children }) {
   const containerRef = useRef<HTMLDivElement>()
   const { isMobile, setIsMobile } = useAppContext()
-  useEffect(() => {
-    const containerWidth = containerRef.current.clientWidth
-    updateMediaQuery(containerWidth)
-    const resizeObserver = new ResizeObserver(entries => {
-      const { width = containerWidth } = (entries[0] && entries[0].contentRect) || {}
-      updateMediaQuery(width)
-    })
-    resizeObserver.observe(containerRef.current)
-    return () => {
-      if (containerRef.current) {
-        resizeObserver.unobserve(containerRef.current)
-      }
-    }
-  }, [])
+
   const updateMediaQuery = (value: number) => {
     if (!isMobile && value >= 800) {
       setIsMobile(false)
@@ -29,6 +16,21 @@ function AppBox({ children }) {
       setIsMobile(false)
     }
   }
+  useEffect(() => {
+    const containerElement = containerRef.current
+    const containerWidth = containerElement.clientWidth
+    updateMediaQuery(containerWidth)
+    const resizeObserver = new ResizeObserver(entries => {
+      const { width = containerWidth } = (entries[0] && entries[0].contentRect) || {}
+      updateMediaQuery(width)
+    })
+    resizeObserver.observe(containerElement)
+    return () => {
+      if (containerElement) {
+        resizeObserver.unobserve(containerElement)
+      }
+    }
+  }, [])
 
   return (
     <Flex

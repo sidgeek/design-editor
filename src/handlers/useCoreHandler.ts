@@ -2,6 +2,7 @@ import { useCanvasContext } from '@/hooks'
 import { useCallback } from 'react'
 import { CanvasObjects } from '@utils/canvas'
 import { propertiesToInclude } from '../constants/contants'
+import { FabricObject } from '@common/interfaces'
 
 function useCoreHandler() {
   const { canvas, activeObject } = useCanvasContext()
@@ -13,13 +14,11 @@ function useCoreHandler() {
         const diffHeight = nextHeight / 2 - canvas.height / 2
         canvas.setWidth(nextWidth).setHeight(nextHeight)
 
-        //@ts-ignore
-        const workarea = canvas.getObjects().find(obj => obj.id === 'workarea')
+        const workarea = canvas.getObjects().find((obj: FabricObject) => obj.id === 'workarea')
         workarea.center()
         canvas.renderAll()
 
-        canvas.forEachObject(obj => {
-          // @ts-ignore
+        canvas.forEachObject((obj: FabricObject) => {
           if (obj.id !== 'workarea') {
             const left = obj.left + diffWidth
             const top = obj.top + diffHeight
@@ -38,8 +37,7 @@ function useCoreHandler() {
   const resizeWorkarea = useCallback(
     (width: number, height: number) => {
       if (canvas) {
-        //@ts-ignore
-        const workarea = canvas.getObjects().find(obj => obj.id === 'workarea')
+        const workarea = canvas.getObjects().find((obj: FabricObject) => obj.id === 'workarea')
         workarea.set({
           width,
           height,
@@ -60,8 +58,7 @@ function useCoreHandler() {
         element.scaleToHeight(180)
       }
 
-      //@ts-ignore
-      const workarea = canvas.getObjects().find(obj => obj.id === 'workarea')
+      const workarea = canvas.getObjects().find((obj: FabricObject) => obj.id === 'workarea')
       canvas.add(element)
       element.center()
 
@@ -77,8 +74,7 @@ function useCoreHandler() {
 
   const cloneOject = useCallback(() => {
     if (canvas) {
-      //@ts-ignore
-      const workarea = canvas.getObjects().find(obj => obj.id === 'workarea')
+      const workarea = canvas.getObjects().find((obj: FabricObject) => obj.id === 'workarea')
 
       activeObject?.clone((clone: fabric.Object) => {
         clone.set({
@@ -141,8 +137,7 @@ function useCoreHandler() {
 
   const setCanvasBackgroundColor = useCallback(
     color => {
-      // @ts-ignore
-      const workarea = canvas.getObjects().find(object => object.id === 'workarea')
+      const workarea = canvas.getObjects().find((object: FabricObject) => object.id === 'workarea')
       if (workarea) {
         workarea.set('fill', color)
         canvas.requestRenderAll()
