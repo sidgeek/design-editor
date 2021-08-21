@@ -5,6 +5,7 @@ import Toolbox from '@components/Toolbox/Toolbox'
 import CanvasArea from '@components/CanvasArea/CanvasArea'
 import NotSupported from '@components/NotSupported'
 import { useAppContext } from '@contexts/app/AppContext'
+import Footer from '@components/Footer'
 
 function Editor() {
   const { isMobile } = useAppContext()
@@ -27,6 +28,7 @@ function Editor() {
           >
             <Toolbox />
             <CanvasArea />
+            <Footer />
           </Flex>
         </Flex>
       )}
