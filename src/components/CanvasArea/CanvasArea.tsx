@@ -1,6 +1,6 @@
 import { Flex } from 'theme-ui'
-import Canvas from '@components/Canvas'
-import Slides from '@components/Slides'
+import Editor from '@/uibox'
+
 function CanvasArea() {
   return (
     <Flex
@@ -9,8 +9,7 @@ function CanvasArea() {
         position: 'relative',
       }}
     >
-      <Canvas />
-      {/* <Slides /> */}
+      <Editor />
     </Flex>
   )
 }
