@@ -23,12 +23,12 @@ export interface FabricWheelEvent {
 export interface HandlerOptions {
   root: Handlers
   context: IEditorContext
-  canvas: fabric.Canvas
+  canvas: FabricCanvas
 }
 
 export interface RootHandlerOptions {
   context: IEditorContext
-  canvas: fabric.Canvas
+  canvas: FabricCanvas
 }
 
 export interface EditorOptions {
@@ -40,3 +40,9 @@ export interface CanvasOptions {
   width: number
   height: number
 }
+
+export interface FabricCanvasOption {
+  wrapperEl: HTMLElement
+}
+
+export type FabricCanvas<T extends any = fabric.Canvas> = T & FabricCanvasOption

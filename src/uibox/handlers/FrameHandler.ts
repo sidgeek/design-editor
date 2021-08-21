@@ -24,6 +24,7 @@ class FrameHandler extends BaseHandler {
       id: '',
       name: 'Initial Frame',
       fill: '#ffffff',
+      hoverCursor: 'default',
     })
     this.canvas.add(frame)
     frame.center()
@@ -124,32 +125,23 @@ class FrameHandler extends BaseHandler {
     // }
   }
 
-  getFillRatio = () => {
-    // const canvasWidth = this.canvas.getWidth()
-    // const canvasHeight = this.canvas.getHeight()
-    // const options = this.getOptions()
-    // let fillZoomRatio = 1
-    // fillZoomRatio = Math.max((canvasHeight - 32) / options.height, (canvasWidth - 32) / options.width)
-    // return fillZoomRatio
-  }
-
   getFitRatio = () => {
-    // const canvasWidth = this.canvas.getWidth() - 32
-    // const canvasHeight = this.canvas.getHeight() - 32
-    // const options = this.getOptions()
-    // let scaleX = canvasWidth / options.width
-    // let scaleY = canvasHeight / options.height
-    // if (options.height >= options.width) {
-    //   scaleX = scaleY
-    //   if (canvasWidth < options.width * scaleX) {
-    //     scaleX = scaleX * (canvasWidth / (options.width * scaleX))
-    //   }
-    // } else {
-    //   if (canvasHeight < options.height * scaleX) {
-    //     scaleX = scaleX * (canvasHeight / (options.height * scaleX))
-    //   }
-    // }
-    // return scaleX
+    const canvasWidth = this.canvas.getWidth() - 32
+    const canvasHeight = this.canvas.getHeight() - 32
+    const options = this.getOptions()
+    let scaleX = canvasWidth / options.width
+    let scaleY = canvasHeight / options.height
+    if (options.height >= options.width) {
+      scaleX = scaleY
+      if (canvasWidth < options.width * scaleX) {
+        scaleX = scaleX * (canvasWidth / (options.width * scaleX))
+      }
+    } else {
+      if (canvasHeight < options.height * scaleX) {
+        scaleX = scaleX * (canvasHeight / (options.height * scaleX))
+      }
+    }
+    return scaleX
   }
 }
 

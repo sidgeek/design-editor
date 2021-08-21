@@ -9,6 +9,8 @@ export interface IEditorContext {
   setActiveObject: (object: fabric.Object | null) => void
   handlers: Handlers | null
   setHandlers: (handlers: Handlers) => void
+  zoomRatio: number
+  setZoomRatio: (value: number) => void
 }
 
 export const EditorContext = createContext<IEditorContext>({
@@ -18,12 +20,15 @@ export const EditorContext = createContext<IEditorContext>({
   setActiveObject: () => {},
   handlers: null,
   setHandlers: () => {},
+  zoomRatio: 1,
+  setZoomRatio: () => {},
 })
 
 export const EditorProvider: FC = ({ children }) => {
   const [canvas, setCanvas] = useState<fabric.Canvas | null>(null)
   const [activeObject, setActiveObject] = useState<fabric.Object | null>(null)
   const [handlers, setHandlers] = useState<Handlers | null>(null)
+  const [zoomRatio, setZoomRatio] = useState(1)
 
   const context = {
     canvas,
@@ -32,6 +37,8 @@ export const EditorProvider: FC = ({ children }) => {
     setActiveObject,
     handlers,
     setHandlers,
+    zoomRatio,
+    setZoomRatio,
   }
 
   return <EditorContext.Provider value={context}>{children}</EditorContext.Provider>

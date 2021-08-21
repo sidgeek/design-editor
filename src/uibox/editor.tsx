@@ -1,5 +1,6 @@
 import { fabric } from 'fabric'
 import { useContext, useEffect, useRef } from 'react'
+import { FabricCanvas } from './common/interfaces'
 import { EditorContext } from './context'
 import Handlers from './handlers'
 import './objects'
@@ -17,7 +18,7 @@ function Editor() {
       height: clientHeight,
       width: clientWidth,
       preserveObjectStacking: true,
-    })
+    }) as FabricCanvas
     const handlers = new Handlers({
       canvas: canvas,
       context: context,
