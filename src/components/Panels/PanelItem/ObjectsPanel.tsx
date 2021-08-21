@@ -3,6 +3,7 @@ import { getImage, getImages } from '@services/iconscout'
 import { useDebounce } from 'use-debounce'
 import { useCoreHandler } from '@/handlers'
 import { Input, Grid, Flex } from 'theme-ui'
+import { useHandlers } from '@/uibox'
 
 function ObjectsPanel() {
   const [search, setSearch] = useState('')
@@ -10,6 +11,7 @@ function ObjectsPanel() {
   const [value] = useDebounce(search, 1000)
 
   const { addObject } = useCoreHandler()
+  const handlers = useHandlers()
   useEffect(() => {
     getImages('people')
       .then((data: any) => setObjects(data))
@@ -27,10 +29,10 @@ function ObjectsPanel() {
     getImage(uuid)
       .then(url => {
         const options = {
-          type: 'svg',
-          url: url,
+          type: 'StaticVector',
+          metadata: { src: url },
         }
-        addObject(options)
+        handlers.objectsHandler.create(options)
       })
       .catch(console.log)
   }

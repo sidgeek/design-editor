@@ -6,13 +6,16 @@ import isNaN from 'lodash/isNaN'
 class ObjectToFabric {
   async run(item, options) {
     let object
-    console.log(item)
     switch (item.type) {
       case ObjectType.TEXTAREA:
         object = await this.staticText(item, options)
         break
       case ObjectType.STATIC_IMAGE:
         object = await this.staticImage(item, options)
+        break
+      case ObjectType.STATIC_VECTOR:
+        object = await this.staticVector(item, options)
+        break
     }
 
     return object
@@ -71,12 +74,41 @@ class ObjectToFabric {
 
         if (isNaN(top) || isNaN(left)) {
           element.set({
-            top: options.top + options.height / 2 - element.height / 2,
-            left: options.left + options.width / 2 - element.width / 2,
+            top: options.top,
+            left: options.left,
           })
           element.scaleToWidth(320)
         }
         resolve(element)
+      } catch (err) {
+        reject(err)
+      }
+    })
+  }
+
+  staticVector(item, options) {
+    return new Promise(async (resolve, reject) => {
+      try {
+        const baseOptions = this.getBaseOptions(item, options)
+        const src = item.metadata.src
+
+        fabric.loadSVGFromURL(src, (objects, opts) => {
+          const { width, height, top, left } = baseOptions
+          if (!width || !height) {
+            baseOptions.width = opts.width
+            baseOptions.height = opts.height
+          }
+          const object = fabric.util.groupSVGElements(objects, opts)
+
+          if (isNaN(top) || isNaN(left)) {
+            object.set({
+              top: options.top,
+              left: options.left,
+            })
+            object.scaleToWidth(320)
+          }
+          resolve(object)
+        })
       } catch (err) {
         reject(err)
       }

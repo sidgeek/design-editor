@@ -10,28 +10,8 @@ class ObjectHandler extends BaseHandler {
   }
   create = async item => {
     const options = this.root.frameHandler.getOptions()
-    const object: any = await objectToFabric.run(item, options)
-    // const object = new fabric.Textarea(options)
-    // this.canvas.add(object)
-    // let object
-    // switch (options.type) {
-    //   case 'DynamicText':
-    //     object = new fabric.DynamicText({
-    //       ...options,
-    //       top: frameOptions.top + options.height / 2,s
-    //       left: frameOptions.left + centerLeft / 2 - options.width / 2,
-    //     })
-    //     break
-    //   case 'DynamicImage':
-    //     object = new fabric.DynamicImage({
-    //       ...options,
-    //       top: frameOptions.top + centerTop / 2,
-    //       left: frameOptions.left + centerLeft / 2,
-    //     })
-    //     break
-    // }
+    const object: fabric.Object = await objectToFabric.run(item, options)
     this.canvas.add(object)
-    // this.root.transactionHandler.save('object:added')
   }
 
   /**
