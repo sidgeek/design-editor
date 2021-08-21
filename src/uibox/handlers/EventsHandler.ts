@@ -18,7 +18,6 @@ class EventsHandler extends BaseHandler {
       'selection:cleared': this.handleSelection,
       'selection:updated': this.handleSelection,
       'mouse:wheel': this.onMouseWheel,
-      'mouse:over': this.onMouseOver,
       'mouse:out': this.onMouseOut,
       'object:modified': this.objectModified,
     })
@@ -32,7 +31,6 @@ class EventsHandler extends BaseHandler {
       'selection:cleared': this.handleSelection,
       'selection:updated': this.handleSelection,
       'mouse:wheel': this.onMouseWheel,
-      'mouse:over': this.onMouseOver,
       'mouse:out': this.onMouseOut,
       'object:modified': this.objectModified,
     })
@@ -42,18 +40,6 @@ class EventsHandler extends BaseHandler {
 
   objectModified = () => {
     this.root.transactionHandler.save('object:modified')
-  }
-
-  onMouseOver = event => {
-    const target = event.target
-    const activeObjects = this.canvas.getActiveObject()
-    if (target && activeObjects !== target) {
-      const bound = target.getBoundingRect()
-      const ctx = this.canvas.getContext()
-      ctx.strokeStyle = '#7f66f1'
-      ctx.lineWidth = 2.75
-      ctx.strokeRect(bound.left, bound.top, bound.width, bound.height)
-    }
   }
 
   onMouseOut = () => {
