@@ -1,52 +1,59 @@
 import { Input, Box, Grid, Flex } from 'theme-ui'
-import { useCoreHandler } from '@/handlers'
+import { useHandlers } from '@/uibox'
 
 function TextPanel() {
-  const { addObject } = useCoreHandler()
+  const handlers = useHandlers()
+
   const addHeading = () => {
     const options = {
-      type: 'textbox',
-      text: 'Add a heading',
-      fontSize: 32,
-      width: 320,
-      fontWeight: 700,
-      fontFamily: 'Lexend',
-      textAlign: 'center',
+      type: 'Textarea',
+      width: 800,
+      metadata: {
+        fontWeight: 700,
+        fontFamily: 'Lexend',
+        textAlign: 'center',
+        fontSize: 80,
+        value: 'Add a heading',
+      },
     }
-    addObject(options)
+    handlers.objectsHandler.create(options)
   }
 
   const addSubheading = () => {
     const options = {
-      type: 'textbox',
-      text: 'Add a subheading',
-      fontSize: 24,
-      width: 320,
-      fontWeight: 500,
-      fontFamily: 'Lexend',
-      textAlign: 'center',
+      type: 'Textarea',
+      width: 800,
+      metadata: {
+        value: 'Add a subheading',
+        fontSize: 60,
+        fontWeight: 500,
+        fontFamily: 'Lexend',
+        textAlign: 'center',
+      },
     }
-    addObject(options)
+    handlers.objectsHandler.create(options)
   }
 
   const addTextBody = () => {
     const options = {
-      type: 'textbox',
-      text: 'Add a little bit of body text',
-      fontSize: 18,
-      width: 320,
-      fontWeight: 300,
-      fontFamily: 'Lexend',
-      textAlign: 'center',
+      type: 'Textarea',
+      width: 800,
+      metadata: {
+        value: 'Add a little bit of body text',
+        fontSize: 40,
+        fontWeight: 300,
+        fontFamily: 'Lexend',
+        textAlign: 'center',
+      },
     }
-    addObject(options)
+    handlers.objectsHandler.create(options)
   }
   return (
     <>
       <Box sx={{ padding: '2rem 2rem 1rem' }}>
         <Input style={{ background: '#fff', color: '#333' }} type="tel" placeholder="Search text" />
       </Box>
-      <Box sx={{ padding: '0 2rem', color: '#fff' }}>
+      <Box sx={{ padding: '0 2rem', color: '#fff', fontFamily: 'Lexend' }}>
         <Box sx={{ fontWeight: 600, fontSize: '0.84rem', padding: '0.8rem 0' }}>
           Click text to add to page
         </Box>
@@ -89,7 +96,6 @@ function TextPanel() {
           </Flex>
         </Grid>
       </Box>
-      {/* <div className="panel-text"></div> */}
     </>
   )
 }

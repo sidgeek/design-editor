@@ -1,10 +1,5 @@
 export const tabItems = [
   {
-    icon: 'project',
-    label: 'project',
-    name: 'project',
-  },
-  {
     icon: 'templates',
     label: 'Şablonlar',
     name: 'templates',

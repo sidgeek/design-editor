@@ -1,4 +1,5 @@
 import { fabric } from 'fabric'
+import objectToFabric from '../utils/objectToFabric'
 import BaseHandler from './BaseHandler'
 
 class ObjectHandler extends BaseHandler {
@@ -7,16 +8,17 @@ class ObjectHandler extends BaseHandler {
   constructor(props) {
     super(props)
   }
-  create(options) {
-    // const frameOptions = this.root.frameHandler.getOptions()
-    // const centerTop = frameOptions.height
-    // const centerLeft = frameOptions.width
+  create = async item => {
+    const options = this.root.frameHandler.getOptions()
+    const object: any = await objectToFabric.run(item, options)
+    // const object = new fabric.Textarea(options)
+    // this.canvas.add(object)
     // let object
     // switch (options.type) {
     //   case 'DynamicText':
     //     object = new fabric.DynamicText({
     //       ...options,
-    //       top: frameOptions.top + centerTop / 2,
+    //       top: frameOptions.top + options.height / 2,s
     //       left: frameOptions.left + centerLeft / 2 - options.width / 2,
     //     })
     //     break
@@ -28,7 +30,7 @@ class ObjectHandler extends BaseHandler {
     //     })
     //     break
     // }
-    // this.canvas.add(object)
+    this.canvas.add(object)
     // this.root.transactionHandler.save('object:added')
   }
 

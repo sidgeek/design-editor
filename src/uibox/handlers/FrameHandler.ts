@@ -3,6 +3,7 @@ import { SCALE_FACTOR, ObjectType } from '../common/constants'
 import BaseHandler from './BaseHandler'
 import { loadImageFromURL } from '../utils/image-loader'
 import { HandlerOptions } from '../common/interfaces'
+import { FrameOptions } from '../objects'
 
 class FrameHandler extends BaseHandler {
   frame
@@ -39,7 +40,7 @@ class FrameHandler extends BaseHandler {
   }
 
   get = () => {
-    return this.canvas.getObjects().find(object => object.type === ObjectType.FRAME)
+    return this.canvas.getObjects().find(object => object.type === 'Frame')
   }
 
   update = options => {
@@ -108,9 +109,9 @@ class FrameHandler extends BaseHandler {
     // frame.setSelectionBorder()
   }
 
-  getOptions = () => {
-    // const frame = this.get()
-    // return frame.toJSON(this.root.propertiesToInclude)
+  getOptions = (): FrameOptions => {
+    const frame = this.get()
+    return frame.toJSON(this.root.propertiesToInclude)
   }
 
   scaleDimension = options => {
