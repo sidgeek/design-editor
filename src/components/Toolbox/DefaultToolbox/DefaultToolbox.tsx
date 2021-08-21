@@ -1,17 +1,18 @@
-import { useCoreHandler } from '@/handlers'
 import { CSSProperties, useState } from 'react'
 import { TwitterPicker } from 'react-color'
 import { Flex, Box } from 'theme-ui'
 import emptyColorPlaceholder from '@/assets/images/base-color-picker.png'
+import { useHandlers } from '@/uibox'
 
 function Toolbox() {
   const [dropdown, setDropdown] = useState({
     displayColorPicker: false,
   })
+  const handlers = useHandlers()
+
   const [options, setOptions] = useState({
     backgroundColor: '#ffffff',
   })
-  const { setCanvasBackgroundColor } = useCoreHandler()
 
   const handleClick = () => {
     setDropdown({ ...dropdown, displayColorPicker: !dropdown.displayColorPicker })
@@ -33,7 +34,7 @@ function Toolbox() {
   }
 
   const onColorChange = color => {
-    setCanvasBackgroundColor(color.hex)
+    handlers.frameHandler.setBackgroundColor(color.hex)
     setOptions({ ...options, backgroundColor: color.hex })
   }
   return (

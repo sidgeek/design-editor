@@ -2,14 +2,14 @@ import { useEffect, useState } from 'react'
 import { Input, Grid, Box, Flex } from 'theme-ui'
 import { getPixabayImages, PixabayImage } from '@services/pixabay'
 import { useDebounce } from 'use-debounce'
-import { useCoreHandler } from '@/handlers'
+import { useHandlers } from '@/uibox'
 
 function ImagesPanel() {
   const [search, setSearch] = useState('')
   const [images, setImages] = useState<PixabayImage[]>([])
   const [value] = useDebounce(search, 1000)
 
-  const { addObject } = useCoreHandler()
+  const handlers = useHandlers()
   useEffect(() => {
     getPixabayImages('people')
       .then(data => setImages(data))
@@ -26,10 +26,10 @@ function ImagesPanel() {
 
   const addImageToCanvas = url => {
     const options = {
-      type: 'image',
-      url: url,
+      type: 'StaticImage',
+      metadata: { src: url },
     }
-    addObject(options)
+    handlers.objectsHandler.create(options)
   }
 
   return (

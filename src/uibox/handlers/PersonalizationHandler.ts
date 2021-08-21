@@ -1,20 +1,20 @@
 // @ts-nocheck
-import { useEffect } from 'react'
 import { fabric } from 'fabric'
-import { drawCircleIcon, drawVerticalLineIcon, drawHorizontalLineIcon, drawRotateIcon } from '@/utils'
-import { useCanvasContext } from '@/hooks'
+import { HandlerOptions } from '../common/interfaces'
+import BaseHandler from './BaseHandler'
+import { drawCircleIcon, drawVerticalLineIcon, drawHorizontalLineIcon, drawRotateIcon } from '../utils/drawer'
 
-function useCustomizationHandler() {
-  const { canvas } = useCanvasContext()
+class PersonalizationHandler extends BaseHandler {
+  constructor(props: HandlerOptions) {
+    super(props)
+    this.init()
+  }
 
-  /**
-   * Customize fabric controls
-   */
-  useEffect(() => {
+  init() {
     fabric.Object.prototype.transparentCorners = false
     fabric.Object.prototype.cornerColor = '#20bf6b'
     fabric.Object.prototype.cornerStyle = 'circle'
-    fabric.Object.prototype.borderColor = '#00D9E1'
+    fabric.Object.prototype.borderColor = '#7f66f1'
     fabric.Object.prototype.cornerSize = 12
     fabric.Object.prototype.borderScaleFactor = 2.4
     fabric.Object.prototype.borderOpacityWhenMoving = 0
@@ -164,38 +164,34 @@ function useCustomizationHandler() {
       cornerSize: 28,
       withConnection: false,
     })
-  }, [])
 
-  /**
-   * Customize selected styles for groups
-   */
-  useEffect(() => {
-    if (canvas) {
-      canvas.on('selection:created', function (ev) {
-        const objects = canvas.getActiveObjects()
-        if (objects.length > 1) {
-          ev.target.setControlsVisibility({
-            mt: false,
-            mb: false,
-            mr: false,
-            ml: false,
-          })
-          ev.target.borderDashArray = [7]
-        }
-      })
-    }
-  }, [canvas])
-
-  /**
-   * Customize seletion styles
-   */
-  useEffect(() => {
-    if (canvas) {
-      canvas.selectionColor = 'rgba(46, 204, 113, 0.15)'
-      canvas.selectionBorderColor = 'rgb(39, 174, 96)'
-      canvas.selectionLineWidth = 0.4
-    }
-  }, [canvas])
+    this.canvas.selectionColor = 'rgba(46, 204, 113, 0.15)'
+    this.canvas.selectionBorderColor = 'rgb(39, 174, 96)'
+    this.canvas.selectionLineWidth = 0.4
+    this.canvas.on('selection:created', ev => {
+      const objects = this.canvas.getActiveObjects()
+      if (objects.length > 1) {
+        ev.target.setControlsVisibility({
+          mt: false,
+          mb: false,
+          mr: false,
+          ml: false,
+        })
+        ev.target.borderDashArray = [7]
+      }
+    })
+    this.canvas.on('mouse:over', event => {
+      const target = event.target
+      const activeObjects = this.canvas.getActiveObject()
+      if (target && activeObjects !== target) {
+        const bound = target.getBoundingRect()
+        const ctx = this.canvas.getContext()
+        ctx.strokeStyle = '#7f66f1'
+        ctx.lineWidth = 2.75
+        ctx.strokeRect(bound.left, bound.top, bound.width, bound.height)
+      }
+    })
+  }
 }
 
-export default useCustomizationHandler
+export default PersonalizationHandler

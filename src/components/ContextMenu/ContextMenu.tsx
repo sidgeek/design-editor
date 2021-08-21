@@ -1,11 +1,17 @@
 import { Box, Grid } from 'theme-ui'
-import { useCoreHandler } from '@/handlers'
-import { useCanvasContext } from '@/hooks'
+// import { useCoreHandler } from '@/handlers'
+// import { useCanvasContext } from '@/hooks'
 import ContextMenuIcons from './ContextMenuIcons'
 
 function ContextMenu() {
-  const { contextMenu, setContextMenu } = useCanvasContext()
-  const { deleteObject, cloneOject } = useCoreHandler()
+  // const { contextMenu, setContextMenu } = useCanvasContext()
+  // const { deleteObject, cloneOject } = useCoreHandler()
+  const contextMenu = {
+    visible: false,
+    top: 0,
+    left: 0,
+  }
+  const setContextMenu = (params: any) => {}
   return (
     <Box
       sx={{
@@ -28,7 +34,7 @@ function ContextMenu() {
         text="Clone"
         shortcut="Ctrl + C"
         onClick={() => {
-          cloneOject()
+          // cloneOject()
           setContextMenu({ ...contextMenu, visible: false })
         }}
       />
@@ -37,7 +43,7 @@ function ContextMenu() {
         icon="delete"
         text="Delete"
         onClick={() => {
-          deleteObject()
+          // deleteObject()
           setContextMenu({ ...contextMenu, visible: false })
         }}
       />

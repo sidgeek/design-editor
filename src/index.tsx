@@ -1,20 +1,21 @@
 import ReactDOM from 'react-dom'
 import AppContainer from './containers/AppContainer'
 import reportWebVitals from './reportWebVitals'
-import { CanvasProvider } from '@contexts/canvas'
 import { AppProvider } from './contexts/app/AppContext'
 import './i18n/index'
 import { ThemeProvider } from 'theme-ui'
 import theme from './theme'
 import 'focus-visible/dist/focus-visible'
 import './styles/styles.scss'
+import { EditorProvider } from './uibox'
+
 ReactDOM.render(
   <AppProvider>
-    <CanvasProvider>
-      <ThemeProvider theme={theme}>
+    <ThemeProvider theme={theme}>
+      <EditorProvider>
         <AppContainer />
-      </ThemeProvider>
-    </CanvasProvider>
+      </EditorProvider>
+    </ThemeProvider>
   </AppProvider>,
   document.getElementById('root')
 )

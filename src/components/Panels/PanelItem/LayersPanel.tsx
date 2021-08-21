@@ -1,26 +1,8 @@
-import { useCanvasContext } from '@/hooks'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 
 function LayersPanel() {
-  const [layers, setLayers] = useState([])
-  const { canvas } = useCanvasContext()
-  useEffect(() => {
-    if (canvas) {
-      let layersTemp = []
-      canvas.getObjects().forEach(obj => {
-        obj.clone(cloned => {
-          cloned.clipPath = null
-          layersTemp = layersTemp.concat({
-            id: Math.round(Math.random() * 100),
-            type: obj.type,
-            preview: cloned.toDataURL({}),
-            name: obj.name,
-          })
-        })
-      })
-      setLayers(layersTemp)
-    }
-  }, [canvas])
+  const [layers] = useState([])
+
   return (
     <>
       <div style={{ padding: '2rem 2rem 1rem' }}>
