@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react'
 import { Input, Grid, Box, Flex } from 'theme-ui'
 import { getPixabayImages, PixabayImage } from '@services/pixabay'
 import { useDebounce } from 'use-debounce'
-import { useCoreHandler } from '@/handlers'
 import { useHandlers } from '@/uibox'
 
 function ImagesPanel() {

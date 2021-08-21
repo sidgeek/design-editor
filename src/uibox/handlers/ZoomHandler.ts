@@ -2,10 +2,6 @@ import { fabric } from 'fabric'
 import BaseHandler from './BaseHandler'
 
 class ZoomHandler extends BaseHandler {
-  constructor(props) {
-    super(props)
-  }
-
   zoomIn() {
     let zoomRatio = this.canvas.getZoom()
     zoomRatio += 0.05

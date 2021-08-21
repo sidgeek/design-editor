@@ -5,9 +5,7 @@ import BaseHandler from './BaseHandler'
 class ObjectHandler extends BaseHandler {
   clipboard
   isCut
-  constructor(props) {
-    super(props)
-  }
+
   create = async item => {
     const options = this.root.frameHandler.getOptions()
     const object: fabric.Object = await objectToFabric.run(item, options)
@@ -86,7 +84,7 @@ class ObjectHandler extends BaseHandler {
    * Get canvas object by id
    */
   getObject() {
-    const objects = this.canvas.getObjects()
+    // const objects = this.canvas.getObjects()
   }
 
   /**

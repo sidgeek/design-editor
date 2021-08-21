@@ -3,16 +3,16 @@ import { useState } from 'react'
 import ClosePanel from './ClosePanel'
 import PanelItemsList from './PanelsList/PanelsList'
 import PanelItem from './PanelItem/PanelItem'
-import { useCanvasContext } from '@/hooks'
+// import { useCanvasContext } from '@/hooks'
 
 function Panels() {
   const [panelOpen, setPanelOpen] = useState(true)
   const [activeTab, setActiveTab] = useState('templates')
-  const { canvasType } = useCanvasContext()
+  // const { canvasType } = useCanvasContext()
   const closePanel = () => {
     setPanelOpen(!panelOpen)
   }
-  const isPanelOpen = canvasType === 'editor' && panelOpen
+  const isPanelOpen = panelOpen
   return (
     <Flex
       sx={{

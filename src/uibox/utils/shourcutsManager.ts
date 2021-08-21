@@ -1,7 +1,7 @@
 class ShortcutManager {
   //delete
   isDelete(event: KeyboardEvent) {
-    return event.key === 'Delete' || event.keyCode == 46
+    return event.key === 'Delete'
   }
   // select all
   isCtrlA(event: KeyboardEvent) {

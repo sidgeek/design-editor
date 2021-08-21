@@ -30,6 +30,7 @@ function AppBox({ children }) {
         resizeObserver.unobserve(containerElement)
       }
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   return (

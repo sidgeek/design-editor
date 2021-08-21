@@ -7,10 +7,6 @@ class TransactionHandler extends BaseHandler {
   undos = []
   state = {}
   active = false
-  constructor(props) {
-    super(props)
-  }
-
   save = type => {
     try {
       if (this.state) {

@@ -1,7 +1,7 @@
 import { fabric } from 'fabric'
-import { SCALE_FACTOR, ObjectType } from '../common/constants'
+// import { SCALE_FACTOR, ObjectType } from '../common/constants'
 import BaseHandler from './BaseHandler'
-import { loadImageFromURL } from '../utils/image-loader'
+// import { loadImageFromURL } from '../utils/image-loader'
 import { HandlerOptions } from '../common/interfaces'
 import { FrameOptions } from '../objects'
 

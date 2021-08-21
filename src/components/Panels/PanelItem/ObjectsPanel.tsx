@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react'
 import { getImage, getImages } from '@services/iconscout'
 import { useDebounce } from 'use-debounce'
-import { useCoreHandler } from '@/handlers'
 import { Input, Grid, Flex } from 'theme-ui'
 import { useHandlers } from '@/uibox'
 
@@ -10,7 +9,6 @@ function ObjectsPanel() {
   const [objects, setObjects] = useState<any[]>([])
   const [value] = useDebounce(search, 1000)
 
-  const { addObject } = useCoreHandler()
   const handlers = useHandlers()
   useEffect(() => {
     getImages('people')

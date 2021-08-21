@@ -1,27 +1,26 @@
 import { Flex, IconButton, Input } from 'theme-ui'
 import { useState } from 'react'
-import { useCanvasContext } from '@/hooks'
 import { DownloadIcon, LogoIcon, GithubIcon } from './NavbarIcons'
 
 function Navbar() {
-  const { canvas } = useCanvasContext()
+  // const { canvas } = useCanvasContext()
   const [templateName, setTemplateName] = useState('My First Design')
   const downloadImage = () => {
     //@ts-ignore
-    const workarea = canvas.getObjects().find(obj => obj.id === 'workarea')
-    const data = canvas?.toDataURL({
-      multiplier: 3,
-      top: workarea.top,
-      left: workarea.left,
-      height: workarea.height,
-      width: workarea.width,
-    })
-    if (data) {
-      const a = document.createElement('a')
-      a.href = data
-      a.download = 'drawing.png'
-      a.click()
-    }
+    // const workarea = canvas.getObjects().find(obj => obj.id === 'workarea')
+    // const data = canvas?.toDataURL({
+    //   multiplier: 3,
+    //   top: workarea.top,
+    //   left: workarea.left,
+    //   height: workarea.height,
+    //   width: workarea.width,
+    // })
+    // if (data) {
+    //   const a = document.createElement('a')
+    //   a.href = data
+    //   a.download = 'drawing.png'
+    //   a.click()
+    // }
   }
 
   return (

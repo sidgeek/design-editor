@@ -11,7 +11,8 @@ function Editor() {
   const { setHandlers } = context
 
   useEffect(() => {
-    const { clientHeight, clientWidth } = containerRef.current
+    const container = containerRef.current
+    const { clientHeight, clientWidth } = container
 
     const canvas = new fabric.Canvas('canvas', {
       backgroundColor: '#f6f7f9',
@@ -30,13 +31,14 @@ function Editor() {
       const { width = clientWidth, height = clientHeight } = (entries[0] && entries[0].contentRect) || {}
       handlers.canvasHandler.resize(width, height)
     })
-    resizeObserver.observe(containerRef.current)
+    resizeObserver.observe(container)
     return () => {
       handlers.destroy()
-      if (containerRef.current) {
-        resizeObserver.unobserve(containerRef.current)
+      if (container) {
+        resizeObserver.unobserve(container)
       }
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
   return (
     <div ref={containerRef} style={{ flex: 1, position: 'relative' }}>
