@@ -1,5 +1,6 @@
 import { fabric } from 'fabric'
 import { RootHandlerOptions } from '../common/interfaces'
+import { PROPERTIES_TO_INCLUDE } from '../common/constants'
 import CanvasHandler from './CanvasHandler'
 import EventsHandler from './EventsHandler'
 import FrameHandler from './FrameHandler'
@@ -10,8 +11,9 @@ class Handlers {
   public canvasHandler: CanvasHandler
 
   public canvas: fabric.Canvas
-
+  public propertiesToInclude: string[]
   constructor(props: RootHandlerOptions) {
+    this.propertiesToInclude = PROPERTIES_TO_INCLUDE
     const handlerOptions = {
       root: this,
       canvas: props.canvas,
