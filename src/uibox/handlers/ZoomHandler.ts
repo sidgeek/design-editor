@@ -1,5 +1,6 @@
 import { fabric } from 'fabric'
 import BaseHandler from './BaseHandler'
+import { CANVAS_ZOOM_MAX_VALUE, CANVAS_ZOOM_MIN_VALUE } from '@/uibox/common/constants'
 
 class ZoomHandler extends BaseHandler {
   zoomIn() {
@@ -40,8 +41,8 @@ class ZoomHandler extends BaseHandler {
   }
 
   zoomToPoint(point, zoom) {
-    const minZoom = 10
-    const maxZoom = 300
+    const minZoom = CANVAS_ZOOM_MIN_VALUE
+    const maxZoom = CANVAS_ZOOM_MAX_VALUE
     let zoomRatio = zoom
     if (zoom <= minZoom / 100) {
       zoomRatio = minZoom / 100

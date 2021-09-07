@@ -2,6 +2,9 @@ export const PROPERTIES_TO_INCLUDE = ['id', 'name', 'description']
 export const SCALE_FACTOR = 0.4
 export const FONT_SCALE_FACTOR = 0.675
 
+export const CANVAS_ZOOM_MAX_VALUE = 10000
+export const CANVAS_ZOOM_MIN_VALUE = 10
+
 export enum ObjectType {
   STATIC_VECTOR = 'StaticVector',
   STATIC_IMAGE = 'StaticImage',

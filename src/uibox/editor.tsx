@@ -47,6 +47,7 @@ function Editor() {
           position: 'absolute',
           height: '100%',
           width: '100%',
+          // border: '1px solid red',
         }}
       >
         <canvas id="canvas"></canvas>

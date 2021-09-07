@@ -1,13 +1,36 @@
 import { Input } from 'theme-ui'
-import { useEffect } from 'react'
+import { useCallback, useEffect } from 'react'
 import { getTemplateV2 } from '@services/han'
+import { Layer } from '@common/interfaces'
+import { getFontData } from '@common/utils/fontConverHelper'
+
+import { useHandlers } from '@/uibox'
 
 function MusicPanel() {
+  const handlers = useHandlers()
+
+  const addFont = useCallback(
+    (data: Layer) => {
+      const options = getFontData(data)
+      console.log('>>>> options', options)
+      handlers.objectsHandler.create(options)
+    },
+    [handlers]
+  )
+
   useEffect(() => {
     getTemplateV2().then(res => {
-      console.log('>>>> res', res)
+      // const { data, others } = res
+      const { data } = res
+      const layers = data.layer
+      // console.log('>>>> layers', layers)
+      const layer = layers[7]
+      console.log('>>>> layer', layer)
+      if (layer.is_font) {
+        addFont(layer)
+      }
     })
-  }, [])
+  }, [addFont])
 
   return (
     <>

@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { Flex, Slider, Box, Text } from 'theme-ui'
 import { useEditorContext, useHandlers } from '@/uibox'
+import { CANVAS_ZOOM_MAX_VALUE } from '@/uibox/common/constants'
 
 interface Option {
   zoomValue: number
@@ -57,7 +58,11 @@ function FooterMenu() {
         </div>
       </Flex>
       <Flex>
-        <Slider value={option.zoomValue ? option.zoomValue : 1} onChange={e => onZoomChange(e)} max={300} />
+        <Slider
+          value={option.zoomValue ? option.zoomValue : 1}
+          onChange={e => onZoomChange(e)}
+          max={CANVAS_ZOOM_MAX_VALUE}
+        />
         <Box
           sx={{
             padding: '0 1rem',
