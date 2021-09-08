@@ -1,27 +1,49 @@
 import axios from 'axios'
-import { TemplateData } from '@common/interfaces'
+import { Layer, TemplateData } from '@common/interfaces'
 
-const baseURL = 'http://127.0.0.1:8000'
-const hanClient = axios.create({ baseURL })
+const baseURL = '/api/photo/v1'
 
-export function getTemplate(): Promise<string> {
-  return new Promise((resolve, reject) => {
-    hanClient
-      .get(`api/photo/v1/manager/photo/findById?id=74456`)
-      .then(response => {})
-      .catch(err => {
-        reject(err)
-      })
+// 获取防盗链
+export const getImageUrlsMap = (paths: string[]) => {
+  return axios.post(
+    `${baseURL}/oss/getUrl`,
+    { paths },
+    {
+      // withCredentials: true,
+      // headers: {
+      //   'Content-Type': 'application/json;charset=utf-8',
+      // },
+    }
+  )
+}
+
+const getAllValidPaths = (layers: { [k: number]: Layer }) => {
+  return Object.values(layers)
+    .filter(e => !e.is_font)
+    .map(e => `/${e.path}`)
+}
+
+const patchUrlToResult = (layers, pathUrlsMap) => {
+  Object.values(layers).forEach((layer: Layer) => {
+    if (!layer.is_font) {
+      layer.url = pathUrlsMap[`/${layer.path}`]
+    }
   })
 }
 
 export async function getTemplateV2(): Promise<TemplateData> {
-  const response = await axios.get(`${baseURL}/api/photo/v1/manager/photo/findById?id=74456`, {
+  const response = await axios.get(`${baseURL}/manager/photo/findById?id=74456`, {
     withCredentials: true,
   })
 
   const { data: dataStr, ...others } = (response.data as any).results
   const jsonData = JSON.parse(dataStr)
+
+  const paths = getAllValidPaths(jsonData.layer)
+  const res = await getImageUrlsMap(paths)
+
+  const pathUrlsMap = (res.data as any).results
+  patchUrlToResult(jsonData.layer, pathUrlsMap)
 
   return Promise.resolve({ data: jsonData, others })
 }

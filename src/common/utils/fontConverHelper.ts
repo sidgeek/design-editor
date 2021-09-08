@@ -89,7 +89,7 @@ export const convertFontDataToFTextBoxData = (data: Layer) => {
 }
 
 export const getFontData = (layer: Layer) => {
-  const { font, left, right } = layer
+  const { font, left, right, top } = layer
   const { font_size, textAlign = 'center', text } = font
 
   let fText = text && text.trim()
@@ -99,12 +99,30 @@ export const getFontData = (layer: Layer) => {
   const options = {
     type: 'Textarea',
     width: right - left,
+    left,
+    top,
     metadata: {
       fontWeight: 700,
       fontFamily: 'Lexend',
       textAlign,
       fontSize: font_size,
       value: fText,
+    },
+  }
+
+  return options
+}
+
+export const getImageData = (layer: Layer) => {
+  const { left, right, top, url } = layer
+
+  const options = {
+    type: 'StaticImage',
+    width: right - left,
+    left,
+    top,
+    metadata: {
+      src: url,
     },
   }
 

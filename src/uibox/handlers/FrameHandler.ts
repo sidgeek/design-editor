@@ -4,6 +4,7 @@ import BaseHandler from './BaseHandler'
 // import { loadImageFromURL } from '../utils/image-loader'
 import { HandlerOptions } from '../common/interfaces'
 import { FrameOptions } from '../objects'
+import { FRAME_INIT_WIDTH, FRAME_INIT_HEIGHT } from '../common/constants'
 
 class FrameHandler extends BaseHandler {
   frame
@@ -19,8 +20,8 @@ class FrameHandler extends BaseHandler {
 
   initialize() {
     const frame = new fabric.Frame({
-      width: 600,
-      height: 400,
+      width: FRAME_INIT_WIDTH,
+      height: FRAME_INIT_HEIGHT,
       id: '',
       name: 'Initial Frame',
       fill: '#ffffff',
@@ -42,6 +43,15 @@ class FrameHandler extends BaseHandler {
 
   get = () => {
     return this.canvas.getObjects().find(object => object.type === 'Frame')
+  }
+
+  updateSize = (newSize: {width: number, height: number}) => {
+    const frame = this.get()
+    frame.set('width', newSize.width)
+    frame.set('height', newSize.height)
+    frame.center()
+    // ? 什么作用
+    // this.root.transactionHandler.save('frame:update')
   }
 
   update = options => {
@@ -129,8 +139,10 @@ class FrameHandler extends BaseHandler {
     const canvasWidth = this.canvas.getWidth() - 32
     const canvasHeight = this.canvas.getHeight() - 32
     const options = this.getOptions()
+
     let scaleX = canvasWidth / options.width
     let scaleY = canvasHeight / options.height
+
     if (options.height >= options.width) {
       scaleX = scaleY
       if (canvasWidth < options.width * scaleX) {

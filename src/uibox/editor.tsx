@@ -45,12 +45,18 @@ function Editor() {
       <div
         style={{
           position: 'absolute',
-          height: '100%',
-          width: '100%',
-          // border: '1px solid red',
+          height: 800,
+          width: 600,
+          // backgroundColor: "yellow"
         }}
       >
-        <canvas id="canvas"></canvas>
+        <canvas
+          id="canvas"
+          style={{
+            border: '1px solid red',
+            // backgroundColor: "yellow"
+          }}
+        ></canvas>
       </div>
     </div>
   )

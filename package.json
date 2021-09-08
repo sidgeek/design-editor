@@ -2,6 +2,7 @@
   "name": "react-design-editor",
   "version": "0.1.0",
   "private": true,
+  "proxy": "https://editor-admin.699pic.com",
   "dependencies": {
     "@types/theme-ui": "^0.6.0",
     "axios": "^0.21.1",

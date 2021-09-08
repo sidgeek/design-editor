@@ -65,6 +65,7 @@ export interface Layer {
   opacity: number
   path: string
   index: number
+  url: string
 }
 
 interface Head {
