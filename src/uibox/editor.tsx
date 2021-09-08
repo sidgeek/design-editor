@@ -47,7 +47,6 @@ function Editor() {
           position: 'absolute',
           height: 800,
           width: 600,
-          // backgroundColor: "yellow"
         }}
       >
         <canvas

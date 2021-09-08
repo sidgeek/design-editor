@@ -32,7 +32,7 @@ class ObjectToFabric {
           text: value ? value : 'Default Text',
           ...(textAlign && { textAlign }),
           ...(fontFamily && { fontFamily }),
-          ...(fontSize && { fontSize: SCALE_FACTOR * fontSize }),
+          ...(fontSize && { fontSize: fontSize }),
           ...(fontWeight && { fontWeight }),
           ...(charSpacing && { charSpacing }),
           ...(lineheight && { lineheight }),

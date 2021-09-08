@@ -90,7 +90,9 @@ export const convertFontDataToFTextBoxData = (data: Layer) => {
 
 export const getFontData = (layer: Layer) => {
   const { font, left, right, top } = layer
-  const { font_size, textAlign = 'center', text } = font
+  const { font_size, textAlign = 'center', text, transform } = font
+
+  const { Angle = 0, Scale1 = 1, Scale2 = 1 } = transform;
 
   let fText = text && text.trim()
   fText = fText.replace('\u0000', '')
@@ -101,8 +103,10 @@ export const getFontData = (layer: Layer) => {
     width: right - left,
     left,
     top,
+    angle: Angle,
+    scaleY: rounding(Scale1),
+    scaleX: rounding(Scale2),
     metadata: {
-      fontWeight: 700,
       fontFamily: 'Lexend',
       textAlign,
       fontSize: font_size,
