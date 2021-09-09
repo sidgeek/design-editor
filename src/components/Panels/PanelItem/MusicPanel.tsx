@@ -25,16 +25,13 @@ const getFitRatio = (targetSize: Size, canvasSize: Size) => {
 function MusicPanel() {
   const handlers = useHandlers()
   const [exceptSize] = useState({ width: FRAME_INIT_WIDTH, height: FRAME_INIT_HEIGHT })
-  const [realSize, setRealSize] = useState({ width: 0, height: 0 })
 
   const exceptSizeRef = useReference(exceptSize)
-  const realSizeRef = useReference(realSize)
 
   const addFontToCanvas = useCallback(
     (data: Layer) => {
-      const options = getFontData(data)
-      // console.log('>>>> options', options)
-      handlers.objectsHandler.create({ ...options })
+      const { options, isContainChinese, isVertical } = getFontData(data)
+      return handlers.objectsHandler.create({ ...options }, { isContainChinese, isVertical })
     },
     [handlers]
   )
@@ -42,7 +39,7 @@ function MusicPanel() {
   const addImageToCanvas = useCallback(
     (data: Layer) => {
       const options = getImageData(data)
-      handlers.objectsHandler.create({ ...options })
+      return handlers.objectsHandler.create({ ...options })
     },
     [handlers]
   )
@@ -52,30 +49,62 @@ function MusicPanel() {
       const { data } = res
       const { layer: layers, head } = data
 
-      setRealSize({ width: head.width, height: head.height })
       const canvasSize = handlers.canvasHandler.options
 
       const { ratio, fitSize } = getFitRatio(head, canvasSize)
       console.log('>>>> 123', ratio, fitSize)
       handlers.frameHandler.updateSize(fitSize)
-      handlers.zoomHandler.zoomToRatio(ratio)
+      // handlers.zoomHandler.zoomToRatio(ratio)
 
-      setTimeout(() => {
+      setTimeout(async () => {
         // const indexs = [2, 19, 20, 36]
+        // const indexs = [20]
         // const layerArr = indexs.map(index => layers[index])
 
         const layerArr = Object.values(layers)
-        console.log('>>> layerArr', layerArr)
-        layerArr.forEach(layer => {
-          if (layer.is_font) {
-            addFontToCanvas(layer)
-          } else {
-            addImageToCanvas(layer)
-          }
+        const getAddToCanvasFun = (layer: Layer) =>
+          layer.is_font ? addFontToCanvas(layer) : addImageToCanvas(layer)
+
+        console.log('>>>>> 1')
+        await Promise.allSettled(layerArr.map(getAddToCanvasFun))
+        console.log('>>>>> 2')
+
+        await new Promise(resolve => {
+          setTimeout(() => resolve(true), 5000)
         })
-      }, 2000)
+
+        const canvas = handlers.canvasHandler.canvas
+        const objectArr = handlers.objectsHandler.getObjects()
+
+        console.log('>>>> canvas', canvas)
+        console.log('>>>> objects', objectArr)
+
+        objectArr.forEach(object => {
+          console.log('>>>> object', object)
+        })
+
+        for (let i = 0; i < objectArr.length - 1; ++i) {
+          const layer = objectArr[i]
+          // @ts-ignore
+          // console.log('>>>> layer:', layer.index, layer)
+          // @ts-ignore
+          if (layer.index) {
+            // console.log('>>>> layer:', layer)
+            canvas.bringToFront(layer)
+          } else {
+            canvas.bringForward(layer)
+          }
+        }
+
+        // for (let i = objectArr.length - 1; i < 0; --i) {
+        //   const layer = objectArr[i]
+        //   canvas.bringToFront(layer)
+        // }
+
+        // canvas.bringToFront(objectArr[19])
+      }, 0)
     })
-  }, [addFontToCanvas, addImageToCanvas, handlers, exceptSizeRef, realSizeRef])
+  }, [addFontToCanvas, addImageToCanvas, handlers, exceptSizeRef])
 
   return (
     <>

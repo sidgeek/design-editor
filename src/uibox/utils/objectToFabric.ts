@@ -26,16 +26,16 @@ class ObjectToFabric {
       try {
         const baseOptions = this.getBaseOptions(item, options)
         const metadata = item.metadata
-        const { textAlign, fontFamily, fontSize, fontWeight, charSpacing, lineheight, value } = metadata
+        const { textAlign, fontFamily, fontSize, fontWeight, charSpacing, lineHeight, value } = metadata
         const textOptions = {
           ...baseOptions,
           text: value ? value : 'Default Text',
           ...(textAlign && { textAlign }),
           ...(fontFamily && { fontFamily }),
-          ...(fontSize && { fontSize: fontSize }),
+          ...(fontSize && { fontSize }),
           ...(fontWeight && { fontWeight }),
           ...(charSpacing && { charSpacing }),
-          ...(lineheight && { lineheight }),
+          ...(lineHeight && { lineHeight }),
         }
         const element = new fabric.Textarea(textOptions)
 
@@ -116,13 +116,13 @@ class ObjectToFabric {
   }
 
   getBaseOptions(item, options) {
-    const { left, top, width, height, scaleX, scaleY } = item
+    const { left, top, width, height, scaleX, scaleY, index } = item
     let metadata = item.metadata ? item.metadata : {}
     const { fill, angle, originX, originY } = metadata
     let baseOptions = {
       angle: angle ? angle : 0,
-      top: options.top + top * SCALE_FACTOR,
-      left: options.left + left * SCALE_FACTOR,
+      top: options.top + top,
+      left: options.left + left,
       width: width * SCALE_FACTOR,
       height: height * SCALE_FACTOR,
       originX: originX || 'left',
@@ -131,6 +131,7 @@ class ObjectToFabric {
       scaleY: scaleY || 1,
       fill: fill || '#000000',
       metadata: metadata,
+      index: index,
     }
     return baseOptions
   }

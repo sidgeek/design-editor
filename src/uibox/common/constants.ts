@@ -2,11 +2,11 @@ export const PROPERTIES_TO_INCLUDE = ['id', 'name', 'description']
 export const SCALE_FACTOR = 0.4
 export const FONT_SCALE_FACTOR = 0.675
 
-export const CANVAS_ZOOM_MAX_VALUE = 500
+export const CANVAS_ZOOM_MAX_VALUE = 300
 export const CANVAS_ZOOM_MIN_VALUE = 10
 
-export const FRAME_INIT_WIDTH = 600
-export const FRAME_INIT_HEIGHT = 400
+export const FRAME_INIT_WIDTH = 2000
+export const FRAME_INIT_HEIGHT = 3000
 
 export enum ObjectType {
   STATIC_VECTOR = 'StaticVector',

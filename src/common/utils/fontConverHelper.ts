@@ -89,42 +89,57 @@ export const convertFontDataToFTextBoxData = (data: Layer) => {
 }
 
 export const getFontData = (layer: Layer) => {
-  const { font, left, right, top } = layer
-  const { font_size, textAlign = 'center', text, transform } = font
+  const { font, left, right, top, index } = layer
+  const { font_size, textAlign = 'center', text, transform, writing_direction } = font
 
-  const { Angle = 0, Scale1 = 1, Scale2 = 1 } = transform;
+  // transform 处理
+  const { Angle = 0, Scale1 = 1, Scale2 = 1 } = transform
+
+  // 竖排处理
+  // const isVertical = false
+  const isVertical = writing_direction === 2
+  const isContainChinese = hasChineseFont(text)
+
+  // 对竖排做的定制化默认调整
+  const fixLeft = isVertical ? right : left
+  const fixAngle = isVertical ? Angle + 90 : Angle
+  const fixTextAlign = isVertical ? 'left' : textAlign
 
   let fText = text && text.trim()
   fText = fText.replace('\u0000', '')
   fText = fText && fText.replace('\n', '\r')
 
+  // console.log('>>>> scale', rounding(Scale2))
+
   const options = {
     type: 'Textarea',
     width: right - left,
-    left,
-    top,
-    angle: Angle,
+    left: fixLeft,
+    top: top,
+    index,
     scaleY: rounding(Scale1),
     scaleX: rounding(Scale2),
     metadata: {
       fontFamily: 'Lexend',
-      textAlign,
+      textAlign: fixTextAlign,
       fontSize: font_size,
       value: fText,
+      angle: fixAngle,
     },
   }
 
-  return options
+  return { options, isContainChinese, isVertical }
 }
 
 export const getImageData = (layer: Layer) => {
-  const { left, right, top, url } = layer
+  const { left, right, top, url, index } = layer
 
   const options = {
     type: 'StaticImage',
     width: right - left,
     left,
     top,
+    index,
     metadata: {
       src: url,
     },

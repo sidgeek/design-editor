@@ -82,7 +82,7 @@ function getFontAttrType(str: string) {
 
 function geFixW(ratio: number, comW?: number) {
   if (!comW) {
-    console.error("Not valid param", comW);
+    // console.error("Not valid param", comW);
     return 0;
   }
 
@@ -98,7 +98,7 @@ function geFixW(ratio: number, comW?: number) {
  */
 function geFixW2(baseW: number, comW?: number) {
   if (!comW) {
-    console.error("Not valid param", comW);
+    // console.error("Not valid param", comW);
     return 0;
   }
   return 0;
