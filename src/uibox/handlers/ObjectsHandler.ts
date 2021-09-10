@@ -103,7 +103,7 @@ class ObjectHandler extends BaseHandler {
    * Get all canvas objects
    */
   getObjects() {
-    return this.canvas._objects
+    return this.canvas.getObjects()
   }
 
   /**

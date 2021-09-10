@@ -7,7 +7,9 @@ import NotSupported from '@components/NotSupported'
 import { useAppContext } from '@contexts/app/AppContext'
 import Footer from '@components/Footer'
 
-function Editor() {
+function Editor(props) {
+  // const { id } = props.match.params
+
   const { isMobile } = useAppContext()
 
   return (

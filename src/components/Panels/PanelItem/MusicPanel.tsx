@@ -45,7 +45,7 @@ function MusicPanel() {
   )
 
   useEffect(() => {
-    getTemplateV2().then(res => {
+    getTemplateV2('74452').then(res => {
       const { data } = res
       const { layer: layers, head } = data
 
@@ -57,51 +57,20 @@ function MusicPanel() {
       // handlers.zoomHandler.zoomToRatio(ratio)
 
       setTimeout(async () => {
-        // const indexs = [2, 19, 20, 36]
-        // const indexs = [20]
-        // const layerArr = indexs.map(index => layers[index])
-
         const layerArr = Object.values(layers)
+
         const getAddToCanvasFun = (layer: Layer) =>
           layer.is_font ? addFontToCanvas(layer) : addImageToCanvas(layer)
 
-        console.log('>>>>> 1')
         await Promise.allSettled(layerArr.map(getAddToCanvasFun))
-        console.log('>>>>> 2')
-
-        await new Promise(resolve => {
-          setTimeout(() => resolve(true), 5000)
-        })
 
         const canvas = handlers.canvasHandler.canvas
         const objectArr = handlers.objectsHandler.getObjects()
+        const sortObjectArr = objectArr.sort((a: any, b: any) => a.index - b.index)
 
-        console.log('>>>> canvas', canvas)
-        console.log('>>>> objects', objectArr)
-
-        objectArr.forEach(object => {
-          console.log('>>>> object', object)
+        sortObjectArr.forEach(object => {
+          canvas.bringToFront(object)
         })
-
-        for (let i = 0; i < objectArr.length - 1; ++i) {
-          const layer = objectArr[i]
-          // @ts-ignore
-          // console.log('>>>> layer:', layer.index, layer)
-          // @ts-ignore
-          if (layer.index) {
-            // console.log('>>>> layer:', layer)
-            canvas.bringToFront(layer)
-          } else {
-            canvas.bringForward(layer)
-          }
-        }
-
-        // for (let i = objectArr.length - 1; i < 0; --i) {
-        //   const layer = objectArr[i]
-        //   canvas.bringToFront(layer)
-        // }
-
-        // canvas.bringToFront(objectArr[19])
       }, 0)
     })
   }, [addFontToCanvas, addImageToCanvas, handlers, exceptSizeRef])

@@ -1,7 +1,7 @@
 import { Flex } from 'theme-ui'
 import Editor from '@/uibox'
 
-function CanvasArea() {
+function CanvasArea(props) {
   return (
     <Flex
       sx={{
@@ -9,7 +9,7 @@ function CanvasArea() {
         position: 'relative',
       }}
     >
-      <Editor />
+      <Editor {...props}/>
     </Flex>
   )
 }
