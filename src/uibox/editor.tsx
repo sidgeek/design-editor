@@ -4,6 +4,7 @@ import { FabricCanvas } from './common/interfaces'
 import { EditorContext } from './context'
 import Handlers from './handlers'
 import './objects'
+import useAddTemplateDataToCanvas from '@common/hooks/useAddTemplateDataToCanvas'
 
 function Editor() {
   const containerRef = useRef<HTMLDivElement>()
@@ -40,6 +41,8 @@ function Editor() {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
+
+  useAddTemplateDataToCanvas()
   return (
     <div ref={containerRef} style={{ flex: 1, position: 'relative' }}>
       <div
