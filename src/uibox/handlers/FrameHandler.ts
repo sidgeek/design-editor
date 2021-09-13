@@ -6,6 +6,76 @@ import { HandlerOptions } from '../common/interfaces'
 import { FrameOptions } from '../objects'
 import { FRAME_INIT_WIDTH, FRAME_INIT_HEIGHT } from '../common/constants'
 
+function drewGrid(canvas) {
+  const grid = 30
+  const lineStroke = '#C5C9CB'
+  for (let i = 0; i < canvas.width / grid; i++) {
+    const lineX = new fabric.Line([0, i * grid, canvas.width, i * grid], {
+      stroke: lineStroke,
+      selectable: false,
+      type: 'line',
+    })
+    const lineY = new fabric.Line([i * grid, 0, i * grid, canvas.width], {
+      stroke: lineStroke,
+      selectable: false,
+      type: 'line',
+    })
+    canvas.add(lineX)
+    canvas.add(lineY)
+  }
+}
+
+function makeHollowRect(startPoint, width, height) {
+  const lineStroke = 'black'
+  const { x, y } = startPoint
+  const xEnd = x + width
+  const yEnd = y + height
+
+  const lineConfig = {
+    stroke: lineStroke,
+    type: 'line',
+    strokeDashArray: [5, 5],
+  }
+
+  const groupConfig = {
+    evented: false,
+    selectable: false,
+  }
+  const lineXTop = new fabric.Line([x, y, xEnd, y], lineConfig)
+  const lineXBottom = new fabric.Line([x, yEnd, xEnd, yEnd], lineConfig)
+  const lineYLeft = new fabric.Line([x, y, x, yEnd], lineConfig)
+  const lineYRight = new fabric.Line([xEnd, y, xEnd, yEnd], lineConfig)
+
+  var group = new fabric.Group([lineXTop, lineXBottom, lineYLeft, lineYRight], groupConfig)
+
+  return group
+}
+
+function makeHollowRect2(startPoint, width, height) {
+  const lineStroke = '#C5C9CB'
+  const { x, y } = startPoint
+  // L ${x} ${y + height} z
+  var path = new fabric.Path(`M ${x} ${y} L ${x + width} ${y} L ${x + width} ${y + height} `)
+
+  path.set({ fill: 'undefine', stroke: lineStroke, opacity: 0.5, evented: false, selectable: false })
+
+  path.hasBorders = path.hasControls = false
+
+  return path
+}
+
+function makeMaskRect(canvas) {
+  return new fabric.Rect({
+    width: canvas.width,
+    height: canvas.height,
+    name: 'Initial Frame bg',
+    fill: 'yellow',
+    hoverCursor: 'default',
+    opacity: 0.1,
+    evented: false,
+  })
+}
+
 class FrameHandler extends BaseHandler {
   frame
   options
@@ -19,6 +89,9 @@ class FrameHandler extends BaseHandler {
   }
 
   initialize() {
+    const maskRect = makeMaskRect(this.canvas)
+    this.canvas.add(maskRect)
+
     const frame = new fabric.Frame({
       width: FRAME_INIT_WIDTH,
       height: FRAME_INIT_HEIGHT,
@@ -26,9 +99,18 @@ class FrameHandler extends BaseHandler {
       name: 'Initial Frame',
       fill: '#ffffff',
       hoverCursor: 'default',
+      // evented: false,
     })
+
     this.canvas.add(frame)
     frame.center()
+
+    const hRect = makeHollowRect({ x: 20, y: 20 }, 600, 400)
+
+    this.canvas.add(hRect)
+    hRect.center()
+    // line.center()
+
     // this.sizeFormat = this.context.defaultSizeFormat
     // const scaledSize = this.scaleDimension(this.sizeFormat)
     // const shadow = new fabric.Shadow({
