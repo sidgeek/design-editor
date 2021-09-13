@@ -105,7 +105,7 @@ class FrameHandler extends BaseHandler {
     this.canvas.add(frame)
     frame.center()
 
-    const hRect = makeHollowRect({ x: 20, y: 20 }, 600, 400)
+    const hRect = makeHollowRect({ x: 0, y: 0 }, 600, 400)
 
     this.canvas.add(hRect)
     hRect.center()
@@ -127,7 +127,7 @@ class FrameHandler extends BaseHandler {
     return this.canvas.getObjects().find(object => object.type === 'Frame')
   }
 
-  updateSize = (newSize: {width: number, height: number}) => {
+  updateSize = (newSize: { width: number; height: number }) => {
     const frame = this.get()
     frame.set('width', newSize.width)
     frame.set('height', newSize.height)
