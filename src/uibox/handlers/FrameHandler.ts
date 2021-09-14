@@ -19,6 +19,7 @@ class FrameHandler extends BaseHandler {
   }
 
   initialize() {
+    // load frameMask
     const frameMask = new fabric.FrameMask({
       width: this.canvas.width,
       height: this.canvas.height,
@@ -29,6 +30,7 @@ class FrameHandler extends BaseHandler {
     })
     this.canvas.add(frameMask)
 
+    // load frame
     const frame = new fabric.Frame({
       width: FRAME_INIT_WIDTH,
       height: FRAME_INIT_HEIGHT,
@@ -40,6 +42,19 @@ class FrameHandler extends BaseHandler {
 
     this.canvas.add(frame)
     frame.center()
+
+    // // load frameBorer
+    // const frameBorder = new fabric.FrameBorder({
+    //   width: FRAME_INIT_WIDTH,
+    //   height: FRAME_INIT_HEIGHT,
+    //   id: 'frameBorder',
+    //   name: 'Initial Frame border',
+    //   fill: '#ffffff',
+    //   hoverCursor: 'default',
+    // })
+
+    // this.canvas.add(frameBorder)
+    // frameBorder.center()
 
     // line.center()
 

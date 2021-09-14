@@ -18,8 +18,8 @@ const getFitRatio = (targetSize: Size, canvasSize: Size) => {
   const fitSize = { width: canvasSize.height * targetRatio, height: canvasSize.height }
   // console.log('>>> ratio:', canvasSize.width, targetSize.width)
 
-  // return { ratio, fitSize: targetSize }
-  return { ratio, fitSize }
+  return { ratio, fitSize: targetSize }
+  // return { ratio, fitSize }
 }
 
 const useAddTemplateDataToCanvas = () => {
@@ -57,13 +57,13 @@ const useAddTemplateDataToCanvas = () => {
 
       const { ratio, fitSize } = getFitRatio(head, canvasSize)
       console.log('>>>> 123', ratio, fitSize)
+      handlers.zoomHandler.zoomToRatio(ratio)
       handlers.frameHandler.updateSize(fitSize)
-      // handlers.zoomHandler.zoomToRatio(ratio)
 
-      // const layerArr = Object.values(layers)
-      const layerArr = []
+      const layerArr = Object.values(layers)
+      // const layerArr = []
 
-      // const layerArr = Object.values(layers).filter(e => e.index === 1)
+      // const layerArr = Object.values(layers).filter(e => e.index === 8)
       console.log('>>>> layerArr', layerArr)
 
       const getAddToCanvasFun = (layer: Layer) =>
