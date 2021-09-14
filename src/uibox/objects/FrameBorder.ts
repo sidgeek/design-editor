@@ -26,7 +26,7 @@ function makeHollowRect(startPoint, width, height) {
   return group
 }
 
-export class FrameBorderObject extends fabric.Object {
+export class FrameBorderObject extends fabric.Rect {
   static type = 'FrameBorder'
   initialize(options: FrameBorderOptions) {
     super.initialize({
@@ -54,14 +54,10 @@ export class FrameBorderObject extends fabric.Object {
 
 fabric.FrameBorder = fabric.util.createClass(FrameBorderObject, {
   _render(ctx) {
-
-    const hRect = makeHollowRect({ x: 0, y: 0 }, 600, 400)
-    // console.log('>>> render ...', ctx)
-    // console.log('>>> render ...', this.width, this.height)
-    // this.callSuper('_render', ctx)
-    // ctx.font = '20px Helvetica'
-    // ctx.fillStyle = '#333'
-    // ctx.fillText(this.get('label'), -this.width / 2 + 5, -this.height / 2 + 20)
+    this.callSuper('_render', ctx)
+    ctx.font = '20px Helvetica'
+    ctx.fillStyle = '#ffffff'
+    ctx.fillText('hello world', -this.width / 2 + 5, -this.height / 2 + 20)
   },
 })
 fabric.FrameBorder.fromObject = FrameBorderObject.fromObject
