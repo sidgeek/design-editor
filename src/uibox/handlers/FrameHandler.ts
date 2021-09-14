@@ -4,7 +4,37 @@ import BaseHandler from './BaseHandler'
 // import { loadImageFromURL } from '../utils/image-loader'
 import { HandlerOptions } from '../common/interfaces'
 import { FrameOptions } from '../objects'
-import { FRAME_INIT_WIDTH, FRAME_INIT_HEIGHT } from '../common/constants'
+import { FRAME_INIT_WIDTH, FRAME_INIT_HEIGHT, FRAME_BORDER_STROKE_WIDTH } from '../common/constants'
+
+function makeFrameBorder(width, height) {
+  const lineStroke = 'black'
+  const x = 0,
+    y = 0
+  const xEnd = x + width
+  const yEnd = y + height
+
+  const lineConfig = {
+    stroke: lineStroke,
+    type: 'line',
+    strokeWidth: FRAME_BORDER_STROKE_WIDTH,
+    strokeDashArray: [5, 5],
+  }
+
+  const groupConfig = {
+    evented: false,
+    selectable: false,
+    name: 'FrameBorder',
+    index: 999,
+  }
+  const lineXTop = new fabric.Line([x, y, xEnd, y], lineConfig)
+  const lineXBottom = new fabric.Line([x, yEnd, xEnd, yEnd], lineConfig)
+  const lineYLeft = new fabric.Line([x, y, x, yEnd], lineConfig)
+  const lineYRight = new fabric.Line([xEnd, y, xEnd, yEnd], lineConfig)
+
+  var group = new fabric.Group([lineXTop, lineXBottom, lineYLeft, lineYRight], groupConfig)
+
+  return group
+}
 
 class FrameHandler extends BaseHandler {
   frame
@@ -39,24 +69,8 @@ class FrameHandler extends BaseHandler {
       fill: '#ffffff',
       hoverCursor: 'default',
     })
-
     this.canvas.add(frame)
     frame.center()
-
-    // // load frameBorer
-    // const frameBorder = new fabric.FrameBorder({
-    //   width: FRAME_INIT_WIDTH,
-    //   height: FRAME_INIT_HEIGHT,
-    //   id: 'frameBorder',
-    //   name: 'Initial Frame border',
-    //   fill: '#ffffff',
-    //   hoverCursor: 'default',
-    // })
-
-    // this.canvas.add(frameBorder)
-    // frameBorder.center()
-
-    // line.center()
 
     // this.sizeFormat = this.context.defaultSizeFormat
     // const scaledSize = this.scaleDimension(this.sizeFormat)
@@ -70,8 +84,16 @@ class FrameHandler extends BaseHandler {
     // this.options = Object.assign(this.options, scaledSize)
   }
 
+  getMask = () => {
+    return this.canvas.getObjects().find(object => object.type === 'FrameMask')
+  }
+
   get = () => {
     return this.canvas.getObjects().find(object => object.type === 'Frame')
+  }
+
+  getBorder = () => {
+    return this.canvas.getObjects().find(object => object.name === 'FrameBorder')
   }
 
   updateSize = (newSize: { width: number; height: number }) => {
@@ -81,6 +103,19 @@ class FrameHandler extends BaseHandler {
     frame.center()
     // ? 什么作用
     // this.root.transactionHandler.save('frame:update')
+  }
+
+  addFrameBorder = (newSize: { width: number; height: number }) => {
+    const frameBorder = makeFrameBorder(newSize.width, newSize.height)
+    this.canvas.add(frameBorder)
+    frameBorder.center()
+  }
+
+  updateMaskSize = (newSize: { width: number; height: number }) => {
+    const frameMask = this.getMask()
+    frameMask.set('width', newSize.width)
+    frameMask.set('height', newSize.height)
+    frameMask.center()
   }
 
   update = options => {

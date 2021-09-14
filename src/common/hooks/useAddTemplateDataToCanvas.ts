@@ -12,14 +12,10 @@ interface Size {
   height: number
 }
 
+// need to be change
 const getFitRatio = (targetSize: Size, canvasSize: Size) => {
-  const ratio = canvasSize.width / targetSize.width
-  const targetRatio = targetSize.width / targetSize.height
-  const fitSize = { width: canvasSize.height * targetRatio, height: canvasSize.height }
-  // console.log('>>> ratio:', canvasSize.width, targetSize.width)
-
-  return { ratio, fitSize: targetSize }
-  // return { ratio, fitSize }
+  const ratio = Math.floor((canvasSize.height / targetSize.height) * 100)
+  return { ratio: ratio / 100, fitSize: targetSize }
 }
 
 const useAddTemplateDataToCanvas = () => {
@@ -56,15 +52,15 @@ const useAddTemplateDataToCanvas = () => {
       const canvasSize = handlers.canvasHandler.options
 
       const { ratio, fitSize } = getFitRatio(head, canvasSize)
-      console.log('>>>> 123', ratio, fitSize)
       handlers.zoomHandler.zoomToRatio(ratio)
+
+      const newCanvasSize = { width: canvasSize.width / ratio, height: canvasSize.height / ratio }
+
       handlers.frameHandler.updateSize(fitSize)
+      handlers.frameHandler.updateMaskSize(newCanvasSize)
+      handlers.frameHandler.addFrameBorder(fitSize)
 
       const layerArr = Object.values(layers)
-      // const layerArr = []
-
-      // const layerArr = Object.values(layers).filter(e => e.index === 8)
-      console.log('>>>> layerArr', layerArr)
 
       const getAddToCanvasFun = (layer: Layer) =>
         layer.is_font ? addFontToCanvas(layer) : addImageToCanvas(layer)
@@ -73,7 +69,6 @@ const useAddTemplateDataToCanvas = () => {
 
       const canvas = handlers.canvasHandler.canvas
       const objectArr = handlers.objectsHandler.getObjects()
-      // console.log('>>>> objectArr', objectArr)
 
       const sortObjectArr = objectArr.sort((a: any, b: any) => a.index - b.index)
 

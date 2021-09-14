@@ -7,6 +7,7 @@ export const CANVAS_ZOOM_MIN_VALUE = 10
 
 export const FRAME_INIT_WIDTH = 2000
 export const FRAME_INIT_HEIGHT = 3000
+export const FRAME_BORDER_STROKE_WIDTH = 5
 
 export enum ObjectType {
   STATIC_VECTOR = 'StaticVector',
