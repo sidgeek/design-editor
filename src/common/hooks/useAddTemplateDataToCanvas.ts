@@ -7,6 +7,7 @@ import { useHandlers } from '@/uibox'
 import { FRAME_INIT_WIDTH, FRAME_INIT_HEIGHT } from '@/uibox/common/constants'
 import useReference from '@common/hooks/useReference'
 import BgImage from '@/assets/images/bg2.png'
+import { fabric } from 'fabric'
 
 interface Size {
   width: number
@@ -66,6 +67,12 @@ const useAddTemplateDataToCanvas = () => {
       //   originY: 'top',
       // })
 
+      const clipPath = new fabric.Circle({
+        radius: 200,
+        top: -200, // 被裁切物件中心點為基準的 -200
+        left: -200, // 被裁切物件中心點為基準的 -200
+      })
+
       canvas.setOverlayImage(
         BgImage,
         function () {
@@ -77,10 +84,12 @@ const useAddTemplateDataToCanvas = () => {
         {
           scaleX: 100,
           scaleY: 200,
-          top: -1000,
-          left: 0,
+          // top: -1000,
+          // left: 0,
           originX: 'left',
           originY: 'top',
+          opacity: 1,
+          clipPath,
         }
       )
 
