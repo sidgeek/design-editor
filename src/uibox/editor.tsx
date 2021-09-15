@@ -55,8 +55,8 @@ function Editor() {
         <canvas
           id="canvas"
           style={{
-            // border: '1px solid red',
-            // backgroundColor: "yellow"
+            border: '1px solid red',
+            // backgroundColor: '#000',
           }}
         ></canvas>
       </div>
