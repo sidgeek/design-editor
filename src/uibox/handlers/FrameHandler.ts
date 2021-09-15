@@ -50,15 +50,15 @@ class FrameHandler extends BaseHandler {
 
   initialize() {
     // load frameMask
-    const frameMask = new fabric.FrameMask({
-      width: this.canvas.width,
-      height: this.canvas.height,
-      id: 'frameMask',
-      name: 'Initial Frame Mask',
-      fill: 'yellow',
-      hoverCursor: 'default',
-    })
-    this.canvas.add(frameMask)
+    // const frameMask = new fabric.FrameMask({
+    //   width: this.canvas.width,
+    //   height: this.canvas.height,
+    //   id: 'frameMask',
+    //   name: 'Initial Frame Mask',
+    //   fill: 'yellow',
+    //   hoverCursor: 'default',
+    // })
+    // this.canvas.add(frameMask)
 
     // load frame
     const frame = new fabric.Frame({
@@ -112,10 +112,10 @@ class FrameHandler extends BaseHandler {
   }
 
   updateMaskSize = (newSize: { width: number; height: number }) => {
-    const frameMask = this.getMask()
-    frameMask.set('width', newSize.width)
-    frameMask.set('height', newSize.height)
-    frameMask.center()
+    // const frameMask = this.getMask()
+    // frameMask.set('width', newSize.width)
+    // frameMask.set('height', newSize.height)
+    // frameMask.center()
   }
 
   update = options => {

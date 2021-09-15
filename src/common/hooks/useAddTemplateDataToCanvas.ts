@@ -6,6 +6,7 @@ import { getFontData, getImageData } from '@common/utils/fontConverHelper'
 import { useHandlers } from '@/uibox'
 import { FRAME_INIT_WIDTH, FRAME_INIT_HEIGHT } from '@/uibox/common/constants'
 import useReference from '@common/hooks/useReference'
+import BgImage from '@/assets/images/bg2.png'
 
 interface Size {
   width: number
@@ -54,6 +55,35 @@ const useAddTemplateDataToCanvas = () => {
       const { ratio, fitSize } = getFitRatio(head, canvasSize)
       handlers.zoomHandler.zoomToRatio(ratio)
 
+      const canvas = handlers.canvasHandler.canvas
+
+      // canvas.setOverlayImage(BgImage, canvas.renderAll.bind(canvas), {
+      //   scaleX: 100,
+      //   scaleY: 100,
+      //   top: 0,
+      //   left: 0,
+      //   originX: 'left',
+      //   originY: 'top',
+      // })
+
+      canvas.setOverlayImage(
+        BgImage,
+        function () {
+          console.log('>>>> overlayImage:', canvas.overlayImage)
+          // canvas.overlayImage && canvas.overlayImage.scaleToWidth(canvas.width)
+          // canvas.overlayImage && canvas.overlayImage.scaleToWidth(300).scaleToHeight(700)
+          canvas.renderAll()
+        },
+        {
+          scaleX: 100,
+          scaleY: 200,
+          top: -1000,
+          left: 0,
+          originX: 'left',
+          originY: 'top',
+        }
+      )
+
       const newCanvasSize = { width: canvasSize.width / ratio, height: canvasSize.height / ratio }
 
       handlers.frameHandler.updateSize(fitSize)
@@ -67,7 +97,6 @@ const useAddTemplateDataToCanvas = () => {
 
       await Promise.allSettled(layerArr.map(getAddToCanvasFun))
 
-      const canvas = handlers.canvasHandler.canvas
       const objectArr = handlers.objectsHandler.getObjects()
 
       const sortObjectArr = objectArr.sort((a: any, b: any) => a.index - b.index)
