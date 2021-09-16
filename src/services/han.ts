@@ -31,7 +31,7 @@ const patchUrlToResult = (layers, pathUrlsMap) => {
   })
 }
 
-export async function getTemplateV2(id: string): Promise<TemplateData> {
+export async function getTemplateData(id: string): Promise<TemplateData> {
   const response = await axios.get(`${baseURL}/manager/photo/findById?id=${id}`, {
     withCredentials: true,
   })

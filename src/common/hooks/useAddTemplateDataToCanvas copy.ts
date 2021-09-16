@@ -58,6 +58,41 @@ const useAddTemplateDataToCanvas = () => {
 
       const canvas = handlers.canvasHandler.canvas
 
+      // canvas.setOverlayImage(BgImage, canvas.renderAll.bind(canvas), {
+      //   scaleX: 100,
+      //   scaleY: 100,
+      //   top: 0,
+      //   left: 0,
+      //   originX: 'left',
+      //   originY: 'top',
+      // })
+
+      const clipPath = new fabric.Circle({
+        radius: 200,
+        top: -200, // 被裁切物件中心點為基準的 -200
+        left: -200, // 被裁切物件中心點為基準的 -200
+      })
+
+      canvas.setOverlayImage(
+        BgImage,
+        function () {
+          console.log('>>>> overlayImage:', canvas.overlayImage)
+          // canvas.overlayImage && canvas.overlayImage.scaleToWidth(canvas.width)
+          // canvas.overlayImage && canvas.overlayImage.scaleToWidth(300).scaleToHeight(700)
+          canvas.renderAll()
+        },
+        {
+          scaleX: 100,
+          scaleY: 200,
+          // top: -1000,
+          // left: 0,
+          originX: 'left',
+          originY: 'top',
+          opacity: 1,
+          clipPath,
+        }
+      )
+
       const newCanvasSize = { width: canvasSize.width / ratio, height: canvasSize.height / ratio }
 
       handlers.frameHandler.updateSize(fitSize)
