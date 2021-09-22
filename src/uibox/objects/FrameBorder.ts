@@ -55,9 +55,9 @@ export class FrameBorderObject extends fabric.Rect {
 fabric.FrameBorder = fabric.util.createClass(FrameBorderObject, {
   _render(ctx) {
     this.callSuper('_render', ctx)
-    ctx.font = '20px Helvetica'
-    ctx.fillStyle = '#ffffff'
-    ctx.fillText('hello world', -this.width / 2 + 5, -this.height / 2 + 20)
+    // ctx.font = '20px Helvetica'
+    // ctx.fillStyle = '#ffffff'
+    // ctx.fillText('hello world', -this.width / 2 + 5, -this.height / 2 + 20)
   },
 })
 fabric.FrameBorder.fromObject = FrameBorderObject.fromObject

@@ -65,11 +65,13 @@ const useAddTemplateDataToCanvas = () => {
       handlers.frameHandler.addFrameBorder(fitSize)
 
       const layerArr = Object.values(layers)
+      const filterArr = layerArr.filter(layer => layer.index === 3)
+      console.log('>>> layerArr', layerArr)
 
       const getAddToCanvasFun = (layer: Layer) =>
         layer.is_font ? addFontToCanvas(layer) : addImageToCanvas(layer)
 
-      await Promise.allSettled(layerArr.map(getAddToCanvasFun))
+      await Promise.allSettled(filterArr.map(getAddToCanvasFun))
 
       const objectArr = handlers.objectsHandler.getObjects()
 

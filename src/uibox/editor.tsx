@@ -5,6 +5,7 @@ import { EditorContext } from './context'
 import Handlers from './handlers'
 import './objects'
 import useAddTemplateDataToCanvas from '@common/hooks/useAddTemplateDataToCanvas'
+import useGuidelinesHandler from './hooks/useGuidelinesHandler'
 
 function Editor() {
   const containerRef = useRef<HTMLDivElement>()
@@ -43,6 +44,7 @@ function Editor() {
   }, [])
 
   useAddTemplateDataToCanvas()
+  useGuidelinesHandler()
   return (
     <div ref={containerRef} style={{ flex: 1, position: 'relative' }}>
       <div
