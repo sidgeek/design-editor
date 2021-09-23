@@ -54,12 +54,17 @@ export const useGetCanvasOperator = () => {
     return { width: canvas.width, height: canvas.height }
   }, [handlers])
 
+  const getCanvasObjects = useCallback(() => {
+    return handlers.objectsHandler.getObjects().filter(object => !object.type.startsWith('Frame'))
+  }, [handlers])
+
   return {
     addImageToCanvas,
     addFontToCanvas,
     addTextToCanvas,
     getWorkAreaOptions,
     getObjectByType,
-    getCanvasSize
+    getCanvasSize,
+    getCanvasObjects,
   }
 }

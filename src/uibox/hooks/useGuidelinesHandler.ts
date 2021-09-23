@@ -14,7 +14,7 @@ export const drawObjectBorderFrame = (canvas, item) => {
 
 function useGuidelinesHandler() {
   const { canvas } = useEditorContext()
-  const { getWorkAreaOptions, getObjectByType, getCanvasSize } = useGetCanvasOperator()
+  const { getWorkAreaOptions, getObjectByType, getCanvasSize, getCanvasObjects } = useGetCanvasOperator()
 
   useEffect(() => {
     if (canvas) {
@@ -127,7 +127,9 @@ function useGuidelinesHandler() {
         let activeObject = e.target
         if (!activeObject || !viewportTransform) return
 
-        let canvasObjects = canvas.getObjects()
+        let canvasObjects = getCanvasObjects()
+        // let canvasObjects = canvas.getObjects()
+
         let activeObjectCenter = activeObject.getCenterPoint(),
           activeObjectLeft = activeObjectCenter.x,
           activeObjectTop = activeObjectCenter.y,
@@ -356,7 +358,7 @@ function useGuidelinesHandler() {
         canvas.renderAll()
       })
     }
-  }, [canvas, getWorkAreaOptions, getObjectByType, getCanvasSize])
+  }, [canvas, getWorkAreaOptions, getObjectByType, getCanvasSize, getCanvasObjects])
 }
 
 export default useGuidelinesHandler
