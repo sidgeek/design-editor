@@ -41,7 +41,7 @@ function useGuidelinesHandler() {
         const cY2F = cY2.toFixed(FixNum)
         console.log(`>>>> draw vertical (${cX1F}, ${cY1F}) -> (${cX1F}, ${cY2F})`)
 
-        const x1 = cX1 + lF
+        const x1 = cX1 - lF
 
         // console.log('>>>> old x', cX1)
         drawLine(x1, y1 - tF, x1, y2 - tF, true)

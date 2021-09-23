@@ -14,7 +14,7 @@ export const drawObjectBorderFrame = (canvas, item) => {
 
 function useGuidelinesHandler() {
   const { canvas } = useEditorContext()
-  const { getWorkAreaOptions } = useGetCanvasOperator()
+  const { getWorkAreaOptions, getObjectByType, getCanvasSize } = useGetCanvasOperator()
 
   useEffect(() => {
     if (canvas) {
@@ -29,13 +29,15 @@ function useGuidelinesHandler() {
       const getBaseParam = () => {
         const baseOption = getWorkAreaOptions()
         return {
+          wF: baseOption.width,
+          hF: baseOption.height,
           tF: baseOption.top,
           lF: baseOption.left,
         }
       }
 
       const drawVerticalLine = (coords: ILineOptions) => {
-        const [cX1, cY1, cY2] = [coords.x1! - 50, coords.y1!, coords.y2!]
+        const [cX1, cY1, cY2] = [coords.x1! + 0.5, coords.y1!, coords.y2!]
         const [y1, y2] = cY1 > cY2 ? [cY2, cY1] : [cY1, cY2]
         const x1 = cX1
 
@@ -44,13 +46,12 @@ function useGuidelinesHandler() {
         const x1F = Math.floor(x1 - lF)
         const y1F = Math.floor(y1 - tF)
         const y2F = Math.floor(y2 - tF)
-        console.log(`>> draw v (${x1F}, ${y1F}) -> (${x1F}, ${y2F}) ${tF} ${lF}`)
 
         drawLine(x1F, y1F, x1F, y2F, true)
       }
 
       const drawHorizontalLine = (coords: ILineOptions) => {
-        const [cX1, cX2, cY1] = [coords.x1!, coords.x2!, coords.y1! + 50]
+        const [cX1, cX2, cY1] = [coords.x1!, coords.x2!, coords.y1! + 0.5]
         const [x1, x2] = cX1 > cX2 ? [cX2, cX1] : [cX1, cX2]
         const y1 = cY1
 
@@ -60,8 +61,6 @@ function useGuidelinesHandler() {
         const x2F = Math.floor(x2 - lF)
         const y1F = Math.floor(y1 - tF)
 
-        console.log(`>> draw h (${x1F}, ${y1F}) -> (${x2F}, ${y1F}) ${tF} ${lF}`)
-
         drawLine(x1F, y1F, x2F, y1F, false)
       }
 
@@ -69,24 +68,33 @@ function useGuidelinesHandler() {
         ctx.save()
         ctx.lineWidth = aligningLineWidth
         ctx.strokeStyle = aligningLineColor
+
+        const { wF, hF } = getBaseParam()
+        const canvasSize = getCanvasSize()
+        const patchX = (canvasSize.width - wF * zoom) / 2
+        const patchY = (canvasSize.height - hF * zoom) / 2
+
         ctx.beginPath()
         if (viewportTransform) {
           if (isVertical) {
             const vM = 0
-            const hM = viewportTransform[5]
+            const hM = 0
             const [rX1, rY1] = [(x1 + hM) * zoom, (y1 + vM) * zoom]
             const [rX2, rY2] = [(x2 + hM) * zoom, (y2 + vM) * zoom]
 
-            ctx.moveTo(rX1, rY1)
-            ctx.lineTo(rX2, rY2)
+            ctx.moveTo(rX1 + patchX, rY1 + patchY)
+            ctx.lineTo(rX2 + patchX, rY2 + patchY)
           } else {
             const vM = 0
-            const hM = viewportTransform[5]
+            // const hM = viewportTransform[5]
+            const hM = 0
             const [rX1, rY1] = [(x1 + hM) * zoom, (y1 + vM) * zoom]
             const [rX2, rY2] = [(x2 + hM) * zoom, (y2 + vM) * zoom]
 
-            ctx.moveTo(rX1, rY1)
-            ctx.lineTo(rX2, rY2)
+            console.log(`>> draw r (${rX1}, ${rY1}) -> (${rX2}, ${rY2})`)
+
+            ctx.moveTo(rX1 + patchX, rY1 + patchY)
+            ctx.lineTo(rX2 + patchX, rY2 + patchY)
           }
         }
         ctx.stroke()
@@ -111,14 +119,11 @@ function useGuidelinesHandler() {
       // horizontalObj = new Map()
 
       canvas.on('mouse:down', function () {
-        // console.log(">>>> down");
         viewportTransform = canvas.viewportTransform
         zoom = canvas.getZoom()
       })
 
       canvas.on('object:moving', function (e) {
-        // console.log(">>>> moving");
-
         let activeObject = e.target
         if (!activeObject || !viewportTransform) return
 
@@ -140,7 +145,6 @@ function useGuidelinesHandler() {
 
         for (let i = canvasObjects.length; i--; ) {
           const item = canvasObjects[i]
-          console.log('>>>> item:', item)
           if (item === activeObject) continue
 
           let objectCenter = item.getCenterPoint(),
@@ -230,6 +234,7 @@ function useGuidelinesHandler() {
           }
 
           // snap by the vertical center line
+          debugger
           if (isInRange(objectTop, activeObjectTop)) {
             horizontalInTheRange = true
             const y1 = objectTop
@@ -242,6 +247,7 @@ function useGuidelinesHandler() {
                 ? activeObjectLeft + activeObjectWidth / 2 + aligningLineOffset
                 : activeObjectLeft - activeObjectWidth / 2 - aligningLineOffset
             horizontalLines.push({ y1, x1, x2 })
+            console.log(`>> push (${x1}, ${y1}) (${x2}, ${y1})`)
 
             if (!horizontalObject.has(i)) {
               horizontalObject.set(i, item)
@@ -350,7 +356,7 @@ function useGuidelinesHandler() {
         canvas.renderAll()
       })
     }
-  }, [canvas, getWorkAreaOptions])
+  }, [canvas, getWorkAreaOptions, getObjectByType, getCanvasSize])
 }
 
 export default useGuidelinesHandler
