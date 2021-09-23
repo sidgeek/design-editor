@@ -2,9 +2,11 @@ import { useCallback } from 'react'
 import { useHandlers } from '@/uibox'
 import { getFontData, getImageData } from '@common/utils/fontConverHelper'
 import { Layer } from '@common/interfaces'
+import { useEditorContext } from '@/uibox'
 
 export const useGetCanvasOperator = () => {
   const handlers = useHandlers()
+  const { canvas } = useEditorContext()
 
   const addFontToCanvas = useCallback(
     (data: Layer) => {
@@ -58,6 +60,10 @@ export const useGetCanvasOperator = () => {
     return handlers.objectsHandler.getObjects().filter(object => !object.type.startsWith('Frame'))
   }, [handlers])
 
+  const getCanvas = useCallback(() => {
+    return canvas
+  }, [canvas])
+
   return {
     addImageToCanvas,
     addFontToCanvas,
@@ -65,6 +71,7 @@ export const useGetCanvasOperator = () => {
     getWorkAreaOptions,
     getObjectByType,
     getCanvasSize,
+    getCanvas,
     getCanvasObjects,
   }
 }

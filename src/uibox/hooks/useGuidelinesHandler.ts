@@ -1,7 +1,6 @@
 import { useEffect } from 'react'
 import { fabric } from 'fabric'
 import { ILineOptions } from 'fabric/fabric-impl'
-import { useEditorContext } from '.'
 import { useGetCanvasOperator } from '@common/hooks/useCanvasOperator'
 
 export const drawObjectBorderFrame = (canvas, item) => {
@@ -13,10 +12,10 @@ export const drawObjectBorderFrame = (canvas, item) => {
 }
 
 function useGuidelinesHandler() {
-  const { canvas } = useEditorContext()
-  const { getWorkAreaOptions, getObjectByType, getCanvasSize, getCanvasObjects } = useGetCanvasOperator()
+  const { getWorkAreaOptions, getCanvasSize, getCanvasObjects, getCanvas } = useGetCanvasOperator()
 
   useEffect(() => {
+    const canvas = getCanvas()
     if (canvas) {
       let ctx = canvas.getSelectionContext(),
         aligningLineOffset = 5,
@@ -330,7 +329,7 @@ function useGuidelinesHandler() {
         canvas.renderAll()
       })
     }
-  }, [canvas, getWorkAreaOptions, getObjectByType, getCanvasSize, getCanvasObjects])
+  }, [getCanvas, getWorkAreaOptions, getCanvasSize, getCanvasObjects])
 }
 
 export default useGuidelinesHandler
