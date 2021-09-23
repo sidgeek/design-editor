@@ -41,13 +41,7 @@ function useGuidelinesHandler() {
         const [y1, y2] = cY1 > cY2 ? [cY2, cY1] : [cY1, cY2]
         const x1 = cX1
 
-        const { lF, tF } = getBaseParam()
-
-        const x1F = Math.floor(x1 - lF)
-        const y1F = Math.floor(y1 - tF)
-        const y2F = Math.floor(y2 - tF)
-
-        drawLine(x1F, y1F, x1F, y2F, true)
+        drawLine(x1, y1, x1, y2)
       }
 
       const drawHorizontalLine = (coords: ILineOptions) => {
@@ -55,21 +49,15 @@ function useGuidelinesHandler() {
         const [x1, x2] = cX1 > cX2 ? [cX2, cX1] : [cX1, cX2]
         const y1 = cY1
 
-        const { lF, tF } = getBaseParam()
-
-        const x1F = Math.floor(x1 - lF)
-        const x2F = Math.floor(x2 - lF)
-        const y1F = Math.floor(y1 - tF)
-
-        drawLine(x1F, y1F, x2F, y1F, false)
+        drawLine(x1, y1, x2, y1)
       }
 
-      const drawLine = (x1: number, y1: number, x2: number, y2: number, isVertical: boolean) => {
+      const drawLine = (x1: number, y1: number, x2: number, y2: number) => {
         ctx.save()
         ctx.lineWidth = aligningLineWidth
         ctx.strokeStyle = aligningLineColor
 
-        const { wF, hF } = getBaseParam()
+        const { lF, tF, wF, hF } = getBaseParam()
         const canvasSize = getCanvasSize()
         const patchX = (canvasSize.width - wF * zoom) / 2
         const patchY = (canvasSize.height - hF * zoom) / 2
@@ -78,8 +66,8 @@ function useGuidelinesHandler() {
         if (viewportTransform) {
           const vM = 0
           const hM = 0
-          const [rX1, rY1] = [(x1 + hM) * zoom, (y1 + vM) * zoom]
-          const [rX2, rY2] = [(x2 + hM) * zoom, (y2 + vM) * zoom]
+          const [rX1, rY1] = [(x1 - lF + hM) * zoom, (y1 - tF + vM) * zoom]
+          const [rX2, rY2] = [(x2 - lF + hM) * zoom, (y2 - tF + vM) * zoom]
 
           ctx.moveTo(rX1 + patchX, rY1 + patchY)
           ctx.lineTo(rX2 + patchX, rY2 + patchY)
@@ -103,7 +91,6 @@ function useGuidelinesHandler() {
         horizontalLines: ILineOptions[] = [],
         verticalObject: Map<number, fabric.Object> = new Map(),
         horizontalObject: Map<number, fabric.Object> = new Map()
-      // horizontalObj = new Map()
 
       canvas.on('mouse:down', function () {
         viewportTransform = canvas.viewportTransform
@@ -161,7 +148,6 @@ function useGuidelinesHandler() {
             if (!verticalObject.has(i)) {
               verticalObject.set(i, item)
             }
-            // console.log('>>> vLines:', x1, y1.toFixed(0), y2.toFixed(0))
 
             activeObject.setPositionByOrigin(
               new fabric.Point(objectLeft, activeObjectTop),
@@ -236,7 +222,6 @@ function useGuidelinesHandler() {
                 ? activeObjectLeft + activeObjectWidth / 2 + aligningLineOffset
                 : activeObjectLeft - activeObjectWidth / 2 - aligningLineOffset
             horizontalLines.push({ y1, x1, x2 })
-            console.log(`>> push (${x1}, ${y1}) (${x2}, ${y1})`)
 
             if (!horizontalObject.has(i)) {
               horizontalObject.set(i, item)
