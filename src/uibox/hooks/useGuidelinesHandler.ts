@@ -76,26 +76,13 @@ function useGuidelinesHandler() {
 
         ctx.beginPath()
         if (viewportTransform) {
-          if (isVertical) {
-            const vM = 0
-            const hM = 0
-            const [rX1, rY1] = [(x1 + hM) * zoom, (y1 + vM) * zoom]
-            const [rX2, rY2] = [(x2 + hM) * zoom, (y2 + vM) * zoom]
+          const vM = 0
+          const hM = 0
+          const [rX1, rY1] = [(x1 + hM) * zoom, (y1 + vM) * zoom]
+          const [rX2, rY2] = [(x2 + hM) * zoom, (y2 + vM) * zoom]
 
-            ctx.moveTo(rX1 + patchX, rY1 + patchY)
-            ctx.lineTo(rX2 + patchX, rY2 + patchY)
-          } else {
-            const vM = 0
-            // const hM = viewportTransform[5]
-            const hM = 0
-            const [rX1, rY1] = [(x1 + hM) * zoom, (y1 + vM) * zoom]
-            const [rX2, rY2] = [(x2 + hM) * zoom, (y2 + vM) * zoom]
-
-            console.log(`>> draw r (${rX1}, ${rY1}) -> (${rX2}, ${rY2})`)
-
-            ctx.moveTo(rX1 + patchX, rY1 + patchY)
-            ctx.lineTo(rX2 + patchX, rY2 + patchY)
-          }
+          ctx.moveTo(rX1 + patchX, rY1 + patchY)
+          ctx.lineTo(rX2 + patchX, rY2 + patchY)
         }
         ctx.stroke()
         ctx.restore()
