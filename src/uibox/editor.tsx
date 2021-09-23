@@ -5,7 +5,7 @@ import { EditorContext } from './context'
 import Handlers from './handlers'
 import './objects'
 import useAddTemplateDataToCanvas from '@common/hooks/useAddTemplateDataToCanvas'
-import useGuidelinesHandler from './hooks/useGuidelinesHandler'
+import { useGuidelinesHandler } from './hooks/useGuidelinesHandler'
 
 function Editor() {
   const containerRef = useRef<HTMLDivElement>()

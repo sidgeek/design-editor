@@ -11,7 +11,7 @@ export const drawObjectBorderFrame = (canvas, item) => {
   ctx.strokeRect(bound.left, bound.top, bound.width, bound.height)
 }
 
-function useGuidelinesHandler() {
+export function useGuidelinesHandler() {
   const { getWorkAreaOptions, getCanvasSize, getCanvasObjects, getCanvas } = useGetCanvasOperator()
 
   useEffect(() => {
@@ -331,5 +331,3 @@ function useGuidelinesHandler() {
     }
   }, [getCanvas, getWorkAreaOptions, getCanvasSize, getCanvasObjects])
 }
-
-export default useGuidelinesHandler
