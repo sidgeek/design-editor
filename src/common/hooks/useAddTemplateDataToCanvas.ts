@@ -1,13 +1,12 @@
-import { useCallback, useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { getTemplateData } from '@services/han'
 import { Layer } from '@common/interfaces'
-import { getFontData, getImageData } from '@common/utils/fontConverHelper'
 
 import { useHandlers } from '@/uibox'
 import { FRAME_INIT_WIDTH, FRAME_INIT_HEIGHT } from '@/uibox/common/constants'
 import useReference from '@common/hooks/useReference'
-import BgImage from '@/assets/images/bg2.png'
-import { fabric } from 'fabric'
+import { useGetCanvasOperator } from './useCanvasOperator'
+// import BgImage from '@/assets/images/bg2.png'
 
 interface Size {
   width: number
@@ -23,24 +22,9 @@ const getFitRatio = (targetSize: Size, canvasSize: Size) => {
 const useAddTemplateDataToCanvas = () => {
   const handlers = useHandlers()
   const [exceptSize] = useState({ width: FRAME_INIT_WIDTH, height: FRAME_INIT_HEIGHT })
-
   const exceptSizeRef = useReference(exceptSize)
 
-  const addFontToCanvas = useCallback(
-    (data: Layer) => {
-      const { options, isContainChinese, isVertical } = getFontData(data)
-      return handlers.objectsHandler.create({ ...options }, { isContainChinese, isVertical })
-    },
-    [handlers]
-  )
-
-  const addImageToCanvas = useCallback(
-    (data: Layer) => {
-      const options = getImageData(data)
-      return handlers.objectsHandler.create({ ...options })
-    },
-    [handlers]
-  )
+  const { addFontToCanvas, addImageToCanvas, addTextToCanvas } = useGetCanvasOperator()
 
   useEffect(() => {
     if (!handlers) {
@@ -65,13 +49,14 @@ const useAddTemplateDataToCanvas = () => {
       handlers.frameHandler.addFrameBorder(fitSize)
 
       const layerArr = Object.values(layers)
-      const filterArr = layerArr.filter(layer => layer.index === 3)
-      console.log('>>> layerArr', layerArr)
+      const filterArr = layerArr.filter(layer => layer.index === -2)
+      // console.log('>>> layerArr', layerArr)
 
       const getAddToCanvasFun = (layer: Layer) =>
         layer.is_font ? addFontToCanvas(layer) : addImageToCanvas(layer)
 
       await Promise.allSettled(filterArr.map(getAddToCanvasFun))
+      await addTextToCanvas()
 
       const objectArr = handlers.objectsHandler.getObjects()
 
@@ -81,7 +66,7 @@ const useAddTemplateDataToCanvas = () => {
         canvas.bringToFront(object)
       })
     })
-  }, [addFontToCanvas, addImageToCanvas, handlers, exceptSizeRef])
+  }, [addFontToCanvas, addImageToCanvas, addTextToCanvas, handlers, exceptSizeRef])
 }
 
 export default useAddTemplateDataToCanvas
