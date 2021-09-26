@@ -43,6 +43,10 @@ export const useGetCanvasOperator = () => {
     return handlers.frameHandler.getOptions()
   }, [handlers])
 
+  const getWorkAreaObject = useCallback(() => {
+    return handlers.frameHandler.get()
+  }, [handlers])
+
   const getObjectByType = useCallback(
     (type: string) => {
       const objects = handlers.objectsHandler.getObjects()
@@ -69,6 +73,7 @@ export const useGetCanvasOperator = () => {
     addFontToCanvas,
     addTextToCanvas,
     getWorkAreaOptions,
+    getWorkAreaObject,
     getObjectByType,
     getCanvasSize,
     getCanvas,
