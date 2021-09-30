@@ -5,6 +5,10 @@ import BaseHandler from './BaseHandler'
 import { HandlerOptions } from '../common/interfaces'
 import { FrameOptions } from '../objects'
 import { FRAME_INIT_WIDTH, FRAME_INIT_HEIGHT, FRAME_BORDER_STROKE_WIDTH } from '../common/constants'
+import ladybugImage from '@assets/images/ladybug.png'
+import bg2Image from '@assets/images/bg2.png'
+
+// const backImage = demoImage
 
 function makeFrameBorder(width, height) {
   const lineStroke = 'black'
@@ -35,6 +39,14 @@ function makeFrameBorder(width, height) {
 
   return group
 }
+
+const rectStr = `<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg xmlns:svg="http://www.w3.org/2000/svg" xmlns="http://www.w3.org/2000/svg">
+  <rect width="3000" height="3000"
+  style="fill:rgb(0,0,255);stroke-width:1;stroke:rgb(0,0,0)"/>
+</svg>`
+
+// fabric.Object.prototype.objectCaching = false
 
 class FrameHandler extends BaseHandler {
   frame
@@ -109,6 +121,47 @@ class FrameHandler extends BaseHandler {
     const frameBorder = makeFrameBorder(newSize.width, newSize.height)
     this.canvas.add(frameBorder)
     frameBorder.center()
+
+    var center = this.canvas.getCenter()
+
+    var clipPath = new fabric.Group(
+      [
+        new fabric.Rect({ width: 500, height: 1000, left: -1500 }),
+        new fabric.Rect({ width: 500, height: 1000, left: 1000 }),
+      ],
+      // { left: center.left, top: center.top }
+    )
+
+
+    let self = this
+
+    fabric.loadSVGFromString(rectStr, function (objects, options) {
+      // Group elements to fabric.PathGroup (more than 1 elements) or
+      // to fabric.Path
+      var loadedObject = fabric.util.groupSVGElements(objects, options)
+      // self.canvas.add(loadedObject)
+      // loadedObject.center().setCoords()
+
+      self.canvas.setOverlayImage(loadedObject as any, self.canvas.renderAll.bind(self.canvas), {
+        clipPath,
+        top: center.top,
+        left: center.left,
+        originX: 'center',
+        originY: 'center',
+      })
+
+      // self.canvas.renderAll()
+    })
+
+    // this.canvas.setOverlayImage(backImage, this.canvas.renderAll.bind(this.canvas), {
+    //   // clipPath,
+    //   width: 5000,
+    //   height: 5000,
+    //   // top: center.top,
+    //   // left: center.left,
+    //   // originX: 'center',
+    //   // originY: 'center',
+    // })
 
     // this.canvas.add(
     //   new fabric.FrameBorder({

@@ -23,6 +23,7 @@ function Editor() {
       height: clientHeight,
       width: clientWidth,
       preserveObjectStacking: true,
+      controlsAboveOverlay: true,
     }) as FabricCanvas
     const handlers = new Handlers({
       canvas: canvas,
