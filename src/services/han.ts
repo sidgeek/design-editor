@@ -36,8 +36,14 @@ export async function getTemplateData(id: string): Promise<TemplateData> {
     withCredentials: true,
   })
 
-  const { data: dataStr, ...others } = (response.data as any).results
-  const jsonData = JSON.parse(dataStr)
+  let others, jsonData
+  try {
+    const { data: dataStr, ...rest } = (response.data as any).results
+    others = rest
+    jsonData = JSON.parse(dataStr)
+  } catch (error) {
+    return Promise.reject('Get invalid result data')
+  }
 
   const paths = getAllValidPaths(jsonData.layer)
   const res = await getImageUrlsMap(paths)
