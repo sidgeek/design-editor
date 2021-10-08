@@ -336,7 +336,7 @@ export function useGuidelinesHandler() {
       })
 
       canvas.on('before:render', function () {
-        canvas.clearContext(ctx)
+        // canvas.clearContext(ctx)
       })
 
       canvas.on('after:render', function () {

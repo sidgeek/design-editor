@@ -13,6 +13,7 @@ export function loadImageFromURL(src): Promise<Image> {
   return new Promise(resolve => {
     const image = new Image()
     image.src = src
+    image.crossOrigin = "anonymous"
     image.onload = () => {
       resolve(image)
     }

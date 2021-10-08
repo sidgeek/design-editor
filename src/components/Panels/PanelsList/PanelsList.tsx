@@ -28,7 +28,7 @@ function PanelItems(props: Props) {
       >
         {tabItems.map(tabItem => (
           <PanelItemsListItem
-            key={tabItem.icon}
+            key={tabItem.icon + tabItem.name}
             icon={tabItem.icon}
             label={i18n.t(`editor.panel.items.${tabItem.name}`)}
             name={tabItem.name}

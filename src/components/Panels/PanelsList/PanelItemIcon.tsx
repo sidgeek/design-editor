@@ -135,6 +135,9 @@ const PanelIcons = {
   musics: {
     render: () => <AudioIcon />,
   },
+  viewPort: {
+    render: () => <AudioIcon />,
+  },
 }
 
 export default PanelIcons

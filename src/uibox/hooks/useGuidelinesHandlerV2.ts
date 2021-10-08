@@ -86,7 +86,7 @@ export function useGuidelinesHandler() {
     })
 
     canvas.on('before:render', function () {
-      canvas.clearContext(canvas.contextTop)
+      // canvas.clearContext(canvas.contextTop)
     })
 
     canvas.on('after:render', () => {
@@ -343,7 +343,7 @@ export function useGuidelinesHandler() {
     })
 
     canvas.on('before:render', function () {
-      canvas.clearContext(canvas.contextTop)
+      // canvas.clearContext(canvas.contextTop)
     })
 
     canvas.on('after:render', () => {

@@ -34,4 +34,9 @@ export const tabItems = [
     label: 'Videolar',
     name: 'videos',
   },
+  {
+    icon: 'videos',
+    label: 'Videolar',
+    name: 'viewPort',
+  },
 ]
