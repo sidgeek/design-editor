@@ -5,19 +5,48 @@ import { DownloadIcon, LogoIcon, GithubIcon } from './NavbarIcons'
 import { useEditorContext } from '@/uibox'
 import { useGetCanvasOperator } from '@common/hooks/useCanvasOperator'
 
+const getRelativeOffset = (workAreaObj: any, canvas: any) => {
+  const curBound = workAreaObj.getBoundingRect()
+  const { left, top, height, width } = curBound
+
+  const initTop = (canvas.height - height) / 2
+  const initLeft = (canvas.width - width) / 2
+
+  const x = Math.round(((left - initLeft) * 1000) / 1000)
+  const y = Math.round(((top - initTop) * 1000) / 1000)
+
+  return { x, y }
+}
+
 function Navbar() {
   const { canvas } = useEditorContext()
   const [templateName, setTemplateName] = useState('My First Design')
   const { getWorkAreaObject } = useGetCanvasOperator()
+
+  const adjustCanvas = (isChange: boolean, offset: any, oldZoomRatio?: number) => {
+    const [x, y] = isChange ? [-offset.x, -offset.y] : [offset.x, offset.y]
+    const deltaPoint = new fabric.Point(x, y)
+    const ratio = isChange ? 1 : oldZoomRatio
+
+    const centerP = new fabric.Point(canvas.getWidth() / 2, canvas.getHeight() / 2)
+
+    if (offset) {
+      canvas.relativePan(deltaPoint)
+      canvas.zoomToPoint(centerP, ratio)
+    } else {
+      canvas.zoomToPoint(centerP, ratio)
+      canvas.relativePan(deltaPoint)
+    }
+  }
+
   const downloadImage = () => {
     const workarea = getWorkAreaObject()
     const oldZoomRatio = canvas.getZoom()
-    console.log('>>> center', canvas.getWidth() / 2, canvas.getHeight() / 2)
-    canvas.zoomToPoint(new fabric.Point(canvas.getWidth() / 2, canvas.getHeight() / 2), 1)
 
-    const area = { top: workarea.top, left: workarea.left, height: workarea.height, width: workarea.width }
+    const offset = getRelativeOffset(workarea, canvas)
 
-    console.log('>>> area', area)
+    adjustCanvas(true, offset)
+
     const data = canvas?.toDataURL({
       multiplier: 3,
       top: workarea.top,
@@ -32,7 +61,8 @@ function Navbar() {
       a.download = 'drawing.png'
       a.click()
     }
-    canvas.zoomToPoint(new fabric.Point(canvas.getWidth() / 2, canvas.getHeight() / 2), oldZoomRatio)
+
+    adjustCanvas(false, offset, oldZoomRatio)
   }
 
   return (

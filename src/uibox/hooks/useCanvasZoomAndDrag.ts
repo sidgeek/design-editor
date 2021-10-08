@@ -62,7 +62,6 @@ export const useCanvasZoomAndDrag = () => {
     }
 
     if (canvas) {
-      // canvas.on("mouse:wheel", handleMouseWheel);
       canvas.on('mouse:down', handleMouseDown)
       canvas.on('mouse:move', handleMouseMove)
       canvas.on('mouse:up', handleMouseUp)
@@ -70,7 +69,6 @@ export const useCanvasZoomAndDrag = () => {
 
     return () => {
       if (canvas) {
-        // canvas.off("mouse:wheel", handleMouseWheel);
         canvas.off('mouse:down', handleMouseDown)
         canvas.off('mouse:move', handleMouseMove)
         canvas.off('mouse:up', handleMouseUp)
