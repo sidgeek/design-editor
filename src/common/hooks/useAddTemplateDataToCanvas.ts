@@ -16,6 +16,7 @@ interface Size {
 // need to be change
 const getFitRatio = (targetSize: Size, canvasSize: Size) => {
   const ratio = Math.floor((canvasSize.height / targetSize.height) * 100)
+  // const ratio = 100
   return { ratio: ratio / 100, fitSize: targetSize }
 }
 

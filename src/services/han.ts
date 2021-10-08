@@ -1,5 +1,6 @@
 import axios from 'axios'
 import { Layer, TemplateData } from '@common/interfaces'
+import { ImageScale } from '@/constants/constants'
 
 const baseURL = '/api/photo/v1'
 
@@ -26,7 +27,12 @@ const getAllValidPaths = (layers: { [k: number]: Layer }) => {
 const patchUrlToResult = (layers, pathUrlsMap) => {
   Object.values(layers).forEach((layer: Layer) => {
     if (!layer.is_font) {
-      layer.url = pathUrlsMap[`/${layer.path}`]
+      // layer.url = pathUrlsMap[`/${layer.path}`]
+      const tPath = pathUrlsMap[`/${layer.path}`]
+      // const tPath = pathUrlsMap[`/${layer.path.replace('psd_import', 'psd_pre_import')}`]
+      // console.log(">>> tPath", tPath)
+      const height = Math.round((layer.bottom - layer.top) / ImageScale)
+      layer.url = `${tPath}?x-oss-process=image/quality,q_60/resize,h_${height}`
     }
   })
 }

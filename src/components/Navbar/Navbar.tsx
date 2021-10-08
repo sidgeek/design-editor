@@ -13,23 +13,26 @@ function Navbar() {
     const workarea = getWorkAreaObject()
     const oldZoomRatio = canvas.getZoom()
     console.log('>>> center', canvas.getWidth() / 2, canvas.getHeight() / 2)
-    //   canvas.zoomToPoint(new fabric.Point(canvas.getWidth() / 2, canvas.getHeight() / 2), 1)
-    //   const data = canvas?.toDataURL({
-    //     multiplier: 3,
-    //     top: workarea.top,
-    //     left: workarea.left,
-    //     height: workarea.height,
-    //     width: workarea.width,
-    //   })
+    canvas.zoomToPoint(new fabric.Point(canvas.getWidth() / 2, canvas.getHeight() / 2), 1)
 
-    //   if (data) {
-    //     const a = document.createElement('a')
-    //     a.href = data
-    //     a.download = 'drawing.png'
-    //     a.click()
-    //   }
-    //   canvas.zoomToPoint(new fabric.Point(canvas.getWidth() / 2, canvas.getHeight() / 2), oldZoomRatio)
-    //
+    const area = { top: workarea.top, left: workarea.left, height: workarea.height, width: workarea.width }
+
+    console.log('>>> area', area)
+    const data = canvas?.toDataURL({
+      multiplier: 3,
+      top: workarea.top,
+      left: workarea.left,
+      height: workarea.height,
+      width: workarea.width,
+    })
+
+    if (data) {
+      const a = document.createElement('a')
+      a.href = data
+      a.download = 'drawing.png'
+      a.click()
+    }
+    canvas.zoomToPoint(new fabric.Point(canvas.getWidth() / 2, canvas.getHeight() / 2), oldZoomRatio)
   }
 
   return (

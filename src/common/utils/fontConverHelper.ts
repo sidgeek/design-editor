@@ -1,6 +1,7 @@
 import { hasChineseFont } from './fontHelper'
 import convert from 'color-convert'
 import { isArray } from 'lodash-es'
+import { ImageScale } from '@/constants/constants'
 
 import { Layer, ColorType } from '@common/interfaces'
 
@@ -140,6 +141,8 @@ export const getImageData = (layer: Layer) => {
     left,
     top,
     index,
+    scaleX: ImageScale,
+    scaleY: ImageScale,
     metadata: {
       src: url,
     },
