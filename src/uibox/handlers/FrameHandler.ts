@@ -1,7 +1,5 @@
 import { fabric } from 'fabric'
-// import { SCALE_FACTOR, ObjectType } from '../common/constants'
 import BaseHandler from './BaseHandler'
-// import { loadImageFromURL } from '../utils/image-loader'
 import { HandlerOptions } from '../common/interfaces'
 import { FrameOptions } from '../objects'
 import { FRAME_INIT_WIDTH, FRAME_INIT_HEIGHT, FRAME_BORDER_STROKE_WIDTH } from '../common/constants'
@@ -44,22 +42,10 @@ class FrameHandler extends BaseHandler {
 
   constructor(props: HandlerOptions) {
     super(props)
-    // this.options = defaultFrameOptions
     this.initialize()
   }
 
   initialize() {
-    // load frameMask
-    // const frameMask = new fabric.FrameMask({
-    //   width: this.canvas.width,
-    //   height: this.canvas.height,
-    //   id: 'frameMask',
-    //   name: 'Initial Frame Mask',
-    //   fill: 'yellow',
-    //   hoverCursor: 'default',
-    // })
-    // this.canvas.add(frameMask)
-
     // load frame
     const frame = new fabric.Frame({
       width: FRAME_INIT_WIDTH,
@@ -71,17 +57,6 @@ class FrameHandler extends BaseHandler {
     })
     this.canvas.add(frame)
     frame.center()
-
-    // this.sizeFormat = this.context.defaultSizeFormat
-    // const scaledSize = this.scaleDimension(this.sizeFormat)
-    // const shadow = new fabric.Shadow({
-    //   color: '#afafaf',
-    //   blur: 2.5,
-    // })
-    // const frame = new fabric.Frame({ ...defaultFrameOptions, ...scaledSize, shadow })
-    // this.canvas.add(frame)
-    // frame.center()
-    // this.options = Object.assign(this.options, scaledSize)
   }
 
   getMask = () => {
@@ -111,18 +86,7 @@ class FrameHandler extends BaseHandler {
     frameBorder.center()
   }
 
-  update = options => {
-    // this.sizeFormat = options
-    // const frame = this.get()
-    // const { width, height } = this.scaleDimension(this.sizeFormat)
-    // this.options = Object.assign(this.options, { width, height, isPortrait: options.isPortrait })
-    // frame.set('width', width)
-    // frame.set('height', height)
-    // frame.center()
-    // this.context.setSizeFormat(options)
-    // this.root.transactionHandler.save('frame:update')
-    // this.root.gridHandler.draw()
-  }
+  update = options => {}
 
   setBackgroundColor = (color: string) => {
     const frame = this.get()
@@ -140,20 +104,6 @@ class FrameHandler extends BaseHandler {
     // this.canvas.add(element)
     // element.center()
     // element.moveTo(1)
-  }
-
-  create = options => {
-    // const shadow = new fabric.Shadow({
-    //   color: '#afafaf',
-    //   blur: 2.5,
-    // })
-    // this.sizeFormat = options
-    // const scaledSize = this.scaleDimension(this.sizeFormat)
-    // const frame = new fabric.Frame({ ...defaultFrameOptions, ...scaledSize, shadow })
-    // this.canvas.add(frame)
-    // frame.center()
-    // this.options = Object.assign(this.options, scaledSize)
-    // this.context.setSizeFormat(options)
   }
 
   getBackgroundImage = () => {
@@ -180,16 +130,6 @@ class FrameHandler extends BaseHandler {
   getOptions = (): FrameOptions => {
     const frame = this.get()
     return frame.toJSON(this.root.propertiesToInclude)
-  }
-
-  scaleDimension = options => {
-    // const { pixelHeight, pixelWidth, isPortrait } = options
-    // const height = isPortrait ? pixelHeight * SCALE_FACTOR : pixelWidth * SCALE_FACTOR
-    // const width = isPortrait ? pixelWidth * SCALE_FACTOR : pixelHeight * SCALE_FACTOR
-    // return {
-    //   height,
-    //   width,
-    // }
   }
 
   getFitRatio = () => {
