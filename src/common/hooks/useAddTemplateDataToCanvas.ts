@@ -6,7 +6,6 @@ import { useHandlers } from '@/uibox'
 import { FRAME_INIT_WIDTH, FRAME_INIT_HEIGHT } from '@/uibox/common/constants'
 import useReference from '@common/hooks/useReference'
 import { useGetCanvasOperator } from './useCanvasOperator'
-// import BgImage from '@/assets/images/bg2.png'
 
 interface Size {
   width: number
@@ -43,10 +42,7 @@ const useAddTemplateDataToCanvas = () => {
 
       const canvas = handlers.canvasHandler.canvas
 
-      const newCanvasSize = { width: canvasSize.width / ratio, height: canvasSize.height / ratio }
-
       handlers.frameHandler.updateSize(fitSize)
-      handlers.frameHandler.updateMaskSize(newCanvasSize)
       handlers.frameHandler.addFrameBorder(fitSize)
 
       const layerArr = Object.values(layers)

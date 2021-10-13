@@ -39,7 +39,7 @@ class EventsHandler extends BaseHandler {
   }
 
   objectModified = () => {
-    this.root.transactionHandler.save('object:modified')
+    // this.root.transactionHandler.save('object:modified')
   }
 
   onMouseOut = () => {
@@ -99,11 +99,11 @@ class EventsHandler extends BaseHandler {
       event.preventDefault()
       this.root.zoomHandler.zoomToOne()
     } else if (shourcutsManager.isCtrlZ(event)) {
-      this.root.transactionHandler.undo()
+      // this.root.transactionHandler.undo()
     } else if (shourcutsManager.isCtrlShiftZ(event)) {
-      this.root.transactionHandler.redo()
+      // this.root.transactionHandler.redo()
     } else if (shourcutsManager.isCtrlY(event)) {
-      this.root.transactionHandler.redo()
+      // this.root.transactionHandler.redo()
     } else if (shourcutsManager.isAltLeft(event)) {
       event.preventDefault()
       this.root.objectsHandler.updateCharSpacing(-10)
@@ -121,7 +121,7 @@ class EventsHandler extends BaseHandler {
       this.root.objectsHandler.selectAll()
     } else if (shourcutsManager.isDelete(event)) {
       event.preventDefault()
-      this.root.objectsHandler.removeActive()
+      // this.root.objectsHandler.removeActive()
     } else if (shourcutsManager.isCtrlC(event)) {
       event.preventDefault()
       this.root.objectsHandler.copy()

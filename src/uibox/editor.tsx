@@ -5,8 +5,7 @@ import { EditorContext } from './context'
 import Handlers from './handlers'
 import './objects'
 import useAddTemplateDataToCanvas from '@common/hooks/useAddTemplateDataToCanvas'
-// import { useGuidelinesHandler } from './hooks/useGuidelinesHandler'
-import { useGuidelinesHandler } from './hooks/useGuidelinesHandlerV2'
+import { useGuidelinesHandler } from './hooks/useGuidelinesHandler'
 import { useCanvasZoomAndDrag } from './hooks/useCanvasZoomAndDrag'
 
 function Editor() {

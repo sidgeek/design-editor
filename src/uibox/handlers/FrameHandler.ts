@@ -109,24 +109,6 @@ class FrameHandler extends BaseHandler {
     const frameBorder = makeFrameBorder(newSize.width, newSize.height)
     this.canvas.add(frameBorder)
     frameBorder.center()
-
-    // this.canvas.add(
-    //   new fabric.FrameBorder({
-    //     width: 500,
-    //     height: 500,
-    //     id: '',
-    //     name: 'any',
-    //     stroke: '#333',
-    //     strokeWidth: 40,
-    //   })
-    // )
-  }
-
-  updateMaskSize = (newSize: { width: number; height: number }) => {
-    // const frameMask = this.getMask()
-    // frameMask.set('width', newSize.width)
-    // frameMask.set('height', newSize.height)
-    // frameMask.center()
   }
 
   update = options => {

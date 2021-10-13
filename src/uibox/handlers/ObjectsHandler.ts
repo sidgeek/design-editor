@@ -25,74 +25,6 @@ class ObjectHandler extends BaseHandler {
   }
 
   /**
-   * Update object from canvas
-   */
-  updateTextKeys(value) {
-    // const activeObject = this.canvas.getActiveObject()
-    // if (activeObject && activeObject.insertVar) {
-    //   activeObject.insertVar(value)
-    //   this.context.setKeysMenu({
-    //     isEditing: true,
-    //     shouldShow: false,
-    //     object: undefined,
-    //     position: { left: 0, top: 0 },
-    //     visible: false,
-    //   })
-    // }
-  }
-
-  /**
-   * Get canvas object by id
-   */
-  updateActive = options => {
-    // const activeObject = this.canvas.getActiveObject()
-    // const canvas = this.canvas
-    // if (activeObject) {
-    //   for (const property in options) {
-    //     if (property === 'angle') {
-    //       activeObject.rotate(options['angle'])
-    //       // canvas.fire('object:modified');
-    //       canvas.requestRenderAll()
-    //     } else {
-    //       if (activeObject._objects) {
-    //         activeObject._objects.forEach(object => {
-    //           if (property === 'metadata') {
-    //             object.set('metadata', { ...object.metadata, ...options['metadata'] })
-    //           } else {
-    //             object.set(property, options[property])
-    //           }
-    //           object.setCoords()
-    //         })
-    //       } else {
-    //         if (property === 'metadata') {
-    //           activeObject.set('metadata', { ...activeObject.metadata, ...options[property] })
-    //         } else {
-    //           activeObject.set(property, options[property])
-    //         }
-    //         activeObject.setCoords()
-    //       }
-    //       if (activeObject.type === 'DynamicText') {
-    //         activeObject.updateHeigth()
-    //       }
-    //       canvas.requestRenderAll()
-    //     }
-    //   }
-    // }
-    // this.root.transactionHandler.save('object:updated')
-  }
-
-  /**
-   * Remove active object
-   */
-
-  removeActive() {
-    // this.canvas.getActiveObjects().forEach(obj => {
-    //   this.canvas.remove(obj)
-    // })
-    // this.canvas.discardActiveObject().renderAll()
-    // this.root.transactionHandler.save('object:removed')
-  }
-  /**
    * Get canvas object by id
    */
   getObject() {
@@ -110,35 +42,6 @@ class ObjectHandler extends BaseHandler {
    * Get active object
    */
   getActiveObject() {}
-
-  /**
-   * Delete object by id
-   */
-  deleteObject() {}
-
-  /**
-   * Remove all active objects
-   */
-  deleteActiveObjects() {}
-
-  /**
-   * Clear canvas
-   * @param {boolean} [includeWorkarea=false]
-   */
-  clear = (includeFrame = false) => {
-    // if (includeFrame) {
-    //   this.canvas.clear()
-    // } else {
-    //   const frame = this.root.frameHandler.get()
-    //   this.canvas.getObjects().forEach(object => {
-    //     if (object.type !== 'Frame' && object.type !== 'group') {
-    //       this.canvas.remove(object)
-    //     }
-    //   })
-    //   frame.set('fill', '#ffffff')
-    // }
-    // this.canvas.renderAll()
-  }
 
   moveVertical = value => {
     // const activeObject = this.canvas.getActiveObject()

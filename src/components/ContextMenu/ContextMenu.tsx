@@ -5,7 +5,6 @@ import ContextMenuIcons from './ContextMenuIcons'
 
 function ContextMenu() {
   // const { contextMenu, setContextMenu } = useCanvasContext()
-  // const { deleteObject, cloneOject } = useCoreHandler()
   const contextMenu = {
     visible: false,
     top: 0,
@@ -43,7 +42,6 @@ function ContextMenu() {
         icon="delete"
         text="Delete"
         onClick={() => {
-          // deleteObject()
           setContextMenu({ ...contextMenu, visible: false })
         }}
       />
