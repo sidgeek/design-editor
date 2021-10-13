@@ -59,10 +59,6 @@ class FrameHandler extends BaseHandler {
     frame.center()
   }
 
-  getMask = () => {
-    return this.canvas.getObjects().find(object => object.type === 'FrameMask')
-  }
-
   get = () => {
     return this.canvas.getObjects().find(object => object.type === 'Frame')
   }
