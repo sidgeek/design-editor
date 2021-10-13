@@ -86,8 +86,6 @@ class FrameHandler extends BaseHandler {
     frameBorder.center()
   }
 
-  update = options => {}
-
   setBackgroundColor = (color: string) => {
     const frame = this.get()
     frame.set('fill', color)

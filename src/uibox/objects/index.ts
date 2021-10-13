@@ -1,5 +1,5 @@
 export * from './FrameMask'
-export * from './FrameBorder'
+// export * from './FrameBorder'
 export * from './Frame'
 export * from './Textarea'
 export * from './StaticImage'
